@@ -18,8 +18,21 @@ $menuParams = array(
 $db = JFactory::getDbo();
 $query = $db->getQuery(true);
 
+function getChild($arr, $num, $id) {
+	$out = array();
+	$key = array();
+	foreach ($arr[$num+1] as $key => $val) {
+		if ( $val[parent_id] == $id ) {
+			$out[] = $val;
+			$del[] = $key;
+		}
+	}
+	// add remove elements in array
+	return $out;
+}
+
 function printChild($arr, $num, $id) {
-	foreach ($arr as $key => $val) {
+	foreach ($arr[$num] as $key => $val) {
 		$child = getChild($arr, $num, $id);
 		if (!empty($child)?) {
 			$out = $out.'<div>'.$val['title'].'</div>'.printChild();
