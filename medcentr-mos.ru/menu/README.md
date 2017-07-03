@@ -1,7 +1,7 @@
 # Menu
 
 ## HTML 
-
+```html
 <div id="menu">
 	<div class="menuNode">
 		<a class="menuNodeTitle" href="menuPath added by PHP"><menuTitle added by PHP></a>
@@ -11,7 +11,7 @@
 
 ## PHP
 
-In index get menu's content.
+In index get menu's content. + Add description
 
 ## JS
 
