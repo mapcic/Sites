@@ -10,11 +10,6 @@ $menus = array(
 	)
 );
 
-$menuParams = array(
-	'title',
-	'path'
-)
-
 $db = JFactory::getDbo();
 $query = $db->getQuery(true);
 
@@ -44,8 +39,7 @@ function printChild($arr, $num, $id) {
 }
 
 $db = JFactory::getDbo();
-$menuIds = preg_split('/[\s,]+/', $_POST['ids'], null, PREG_SPLIT_NO_EMPTY);
-$outList = array();
+$out = array();
 
 foreach ($menus as $menu) {
 	// SELECT GROUP_CONCAT(CONCAT(`path`, '/.*') SEPARATOR '|') FROM `joomla_menu` WHERE `id` REGEXP '^351$|^353$'
@@ -71,16 +65,16 @@ foreach ($menus as $menu) {
 	$nodes = $db->setQuery($query)->loadObjectList();
 	$nodes = (empty($nodes))? array() : $nodes; 
 
-	$menulevels = array();
+	$menuByLevel = array();
 	foreach ($nodes as $key => $val) {
-		$menulevels[$val->level][] = $val;	
+		$menuByLevel[$val->level][] = $val;	
 	}
 
-	$keys = array_keys($menulevels); 
+	$keys = array_keys($menuByLevel); 
 	sort($arrKeys); 
 	$levelOffset = $arrKeys[0];
 
-	foreach ($menulevels as $key => $val) {
+	foreach ($menuByLevel as $key => $val) {
 		$out = '<div class="level'.$key.'">'.$val['title'].'</div>'.printChild();
 		echo $out;
 	}
