@@ -1,8 +1,8 @@
 function initMenu(){
     jQuery(window).on('resize', windowSize);
 
-    jQuery('.med').on('click', switchMenu);
-    jQuery('.submed').on('click', stopBubbling);
+    // jQuery('.med').on('click', switchMenu);
+    // jQuery('.submed').on('click', stopBubbling);
     jQuery('#mobMenu').on('click', switchMenuMed);
 
     if ( window.matchMedia('(min-width: 980px)').matches ) {
@@ -40,6 +40,44 @@ function windowSize( event ) {
     }, 500);
     
     jQuery(window).attr('menuTimer', menuTimer);
+}
+
+function menu_close( obj ) {
+    obj.animate(
+        {'height' : 0}, 1000, 
+        function(){
+            obj.addClass('ShliambOff').css('height', 'auto');
+        });
+}
+
+function menu_open( obj ) {
+    var hObj = obj.removeClass('ShliambOff').height();
+    obj.css('height', '0').animate(
+        {'height' : hObj}, 1000, 
+        function(){
+            obj.css('height', 'auto');
+        });
+}
+
+function menu_in( event ) {
+    event.preventDefault();
+
+    var $this = jQuery(this),
+        enabledNode = jQuery('.med[enabled=1]');
+
+    menu_close( enabledNode );
+    menu_open($this);
+    // jQuery.when(menu_close( enabledNode )).then(menu_open($this));
+}
+
+function menu_out( obj ) {
+    event.preventDefault();
+
+    var $this = jQuery(this);
+
+    if ( $this.attr('enable') == 1){
+        menu_close( enabledNode );
+    }
 }
 
 function switchMenu(event) {
