@@ -1,28 +1,56 @@
 function initMenu(){
     jQuery(window).on('resize', windowSize);
-
-    // jQuery('.med').on('click', switchMenu);
-    // jQuery('.submed').on('click', stopBubbling);
-    jQuery('#mobMenu').on('click', switchMenuMed);
+    jQuery('#mobMenu').on('click', menu_switchMobMenu);
 
     if ( window.matchMedia('(min-width: 980px)').matches ) {
+        destrMobMenu();
         initDescMenu();
     } else {
+        destrDescMenu();
         initMobMenu();
     }
+
+    jQuery('.med').each(function(ind){
+        jQuery(this).attr('mednum', ind);
+    });
 }
 
 function initMobMenu(){
-    jQuery(window).attr('isMob', '1');
+    jQuery(window).attr('isMob', 1);
     jQuery('#menumed').addClass('ShliambOff');
     jQuery('#mobMenu').removeClass('ShliambOff');
+
+    jQuery('.med').on('click', menu_touch);
+    jQuery('.submed').on('click', stopBubbling);
+}
+
+function destrMobMenu(){
+    jQuery('.med').off('click', menu_touch);
+    jQuery('.submed').off('click', stopBubbling);
+
+    jQuery('.med').attr('enable', 0)
+        .find('.submed').addClass('ShliambOff').css('height', 'auto');  
 }
 
 function initDescMenu(){
-    jQuery(window).attr('isMob', '0');
+    jQuery(window).attr('isMob', 0);
     jQuery('#menumed').removeClass('ShliambOff');
     jQuery('#mobMenu').addClass('ShliambOff');
+
+    jQuery('.med').on('mouseenter', menu_in);
+    jQuery('.med').on('mouseleave', menu_out);
 }
+
+function destrDescMenu(){
+    jQuery('.med').off('mouseenter', menu_in);
+    jQuery('.med').off('mouseleave', menu_out);
+
+    jQuery('.med').attr('enable', 0)
+        .find('.submed').addClass('ShliambOff').css('height', 'auto');    
+    clearTimeout(+jQuery(window).attr('menuTimerIn'));
+    clearTimeout(+jQuery(window).attr('menuTimerOut'));
+}
+
 
 function windowSize( event ) {
     clearTimeout(jQuery(window).attr('menuTimer'));
@@ -30,10 +58,12 @@ function windowSize( event ) {
     var menuTimer = setTimeout(function(){
         if( window.matchMedia('(min-width: 980px)').matches ) {
             if ( jQuery(window).attr('isMob') == 1 ) {
+                destrMobMenu();
                 initDescMenu();
             }
         }else{
             if ( jQuery(window).attr('isMob') == 0 ) {
+                destrDescMenu();
                 initMobMenu();
             }
         }
@@ -43,84 +73,75 @@ function windowSize( event ) {
 }
 
 function menu_close( obj ) {
-    obj.animate(
+    var submed = obj.find('.submed');
+    submed.animate(
         {'height' : 0}, 1000, 
         function(){
-            obj.addClass('ShliambOff').css('height', 'auto');
+            obj.attr('enable', 0);
+            submed.addClass('ShliambOff').css('height', 'auto');
         });
 }
 
 function menu_open( obj ) {
-    var hObj = obj.removeClass('ShliambOff').height();
-    obj.css('height', '0').animate(
-        {'height' : hObj}, 1000, 
+    var submed = obj.find('.submed'), 
+        hSubmed = submed.removeClass('ShliambOff').height();
+
+    obj.attr('enable', 1);
+
+    submed.css('height', '0').animate(
+        {'height' : hSubmed}, 1000, 
         function(){
-            obj.css('height', 'auto');
+            submed.css('height', 'auto');
         });
+}
+
+function menu_openDesc( objIn, objOut ) {
+    clearTimeout(+jQuery(window).attr('menuTimerOut'));
+    if (objIn.attr('mednum') != objOut.attr('mednum')){
+        menu_close(objOut);
+    }
+    if (objIn.attr('enable') != 1){
+        menu_open(objIn);
+    }
 }
 
 function menu_in( event ) {
     event.preventDefault();
+    clearTimeout(+jQuery(window).attr('menuTimerOut'));
 
     var $this = jQuery(this),
-        enabledNode = jQuery('.med[enabled=1]');
+        enabledNode = jQuery('.med[enable=1]');
 
-    menu_close( enabledNode );
-    menu_open($this);
-    // jQuery.when(menu_close( enabledNode )).then(menu_open($this));
+    menuTimer = setTimeout(menu_openDesc, 1000, $this, enabledNode);
+    jQuery(window).attr('menuTimerIn', menuTimer);
 }
 
-function menu_out( obj ) {
+function menu_out( event ) {
     event.preventDefault();
+    clearTimeout(+jQuery(window).attr('menuTimerIn'));
+    clearTimeout(+jQuery(window).attr('menuTimerOut'));
 
     var $this = jQuery(this);
 
     if ( $this.attr('enable') == 1){
-        menu_close( enabledNode );
+        menuTimer = setTimeout(menu_close, 1000, $this);
+        jQuery(window).attr('menuTimerOut', menuTimer);
     }
 }
 
-function switchMenu(event) {
+function menu_touch(event) {
     event.preventDefault();
-    
-    var $this = jQuery(this),
-        isEnable = +$this.attr('enable'),
-        menus = jQuery('.med'),
-        nodes = menus.find('.submed'),
-        node = $this.find('.submed');
 
-    if (isEnable != 1){
-        enabled = menus.filter('[enable="1"]').find('.submed');
+    var $this = jQuery(this);
 
-        menus.attr('enable', 0);
-        $this.attr('enable', 1);
-        
-        var hNode = node.removeClass('ShliambOff').height();
-        node.css('height', '0').animate(
-            {'height' : hNode}, 1000, 
-            function(){
-                node.css('height', 'auto');
-            });
-
-        enabled.animate(
-            {'height' : 0}, 1000, function(){
-            enabled.addClass('ShliambOff')
-                .css('height', 'auto');
-        });
+    if ($this.attr('enable') == 1) {
+        menu_close($this);
     } else {
-        $this.attr('enable', 0);
-        node.animate(
-            {'height' : 0}, 1000, function(){
-            node.addClass('ShliambOff').css('height', 'auto');
-        });
+        menu_open($this);
     }
 }
 
-function stopBubbling( event ) {
-    event.stopPropagation();
-}
-
-function switchMenuMed( event ) {
+function menu_switchMobMenu( event ) {
     event.preventDefault();
 
     var menumed = jQuery('#menumed');
@@ -137,6 +158,10 @@ function switchMenuMed( event ) {
             menumed.addClass('ShliambOff').css('height', 'auto');
         });
     }
+}
+
+function stopBubbling( event ) {
+    event.stopPropagation();
 }
 
 jQuery(document).ready(function(){
