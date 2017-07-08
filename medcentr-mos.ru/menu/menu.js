@@ -96,7 +96,7 @@ function menu_close( obj ) {
     obj.attr('enable', 0);
 
     submed.animate(
-        {'height' : 0}, 1000, 
+        {'height' : 0}, 500, 
         function(){
             submed.addClass('ShliambOff').css('height', 'auto');
         });
@@ -109,7 +109,7 @@ function menu_open( obj ) {
     obj.attr('enable', 1);
 
     submed.css('height', '0').animate(
-        {'height' : hSubmed}, 1000, 
+        {'height' : hSubmed}, 500, 
         function(){
             submed.css('height', 'auto');
         });
@@ -124,7 +124,7 @@ function menu_openDesct( obj ) {
         menu_close($this);
     });
 
-    menu_open()
+    menu_open(obj);
 }
 
 function menu_in( event ) {
@@ -136,7 +136,7 @@ function menu_in( event ) {
     clearTimeout($this.attr('menuTimerOut'));
 
     if ($this.attr('enable') != 1) {
-        menuTimer = setTimeout(menu_openDesct, 1000, $this);
+        menuTimer = setTimeout(menu_openDesct, 500, $this);
         $this.attr('menuTimerIn', menuTimer);
     }
 
@@ -150,7 +150,7 @@ function menu_out( event ) {
     clearTimeout($this.attr('menuTimerIn'));
 
     if ( $this.attr('enable') == 1){
-        menuTimer = setTimeout(menu_close, 1000, $this);
+        menuTimer = setTimeout(menu_close, 500, $this);
         $this.attr('menuTimerOut', menuTimer);
     }
 }
@@ -174,13 +174,13 @@ function menu_switchMobMenu( event ) {
     if (menumed.hasClass('ShliambOff')) {
         var hMenumed = menumed.removeClass('ShliambOff').height();
         menumed.css('height', '0').animate(
-            {'height' : hMenumed}, 1000, 
+            {'height' : hMenumed}, 500, 
             function(){
                 menumed.css('height', 'auto');
             });
     } else {
         menumed.animate(
-            {'height' : 0}, 1000, function(){
+            {'height' : 0}, 500, function(){
             menumed.addClass('ShliambOff').css('height', 'auto');
         });
     }
