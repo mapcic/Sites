@@ -7,12 +7,12 @@ function initMarketBoxMachine() {
 				navNode = jQuery('<div class="circle"></div>').appendTo(bar)
 					.attr('ind', ind);
 		});
-		$this.find('.NavBarMBM div').first().trigger('click');
-		$this.find('.NavBarMBM').one('click', mbm_stopAnimate);
 
-		$this.attr('animating', '1').attr('bw', 0);
-		// clearInterval(intervalID)
-		intervalID = setInterval(mbm_animate, 5000, ind)
+		$this.find('.NavBarMBM div').attr('enable', 0).one('click', mbm_stopAnimate);
+		mbm_switchTo($this.find('.NavBarMBM div').first());
+		
+		var timer = setInterval(mbm_animate, 5000, ind);
+		$this.attr('animating', '1').attr('bw', 0).attr('timerMBM', timer);
 	});
 }
 
