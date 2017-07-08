@@ -2,9 +2,8 @@ function initMenu(){
     jQuery(window).on('resize', windowSize);
     jQuery('#mobMenu').on('click', menu_switchMobMenu);
 
-    jQuery('.med').each(function(ind){
+    jQuery('.med').attr('desctOn', 0).each(function(ind){
         var $this = jQuery(this),
-            numChild = $this.find('.submed').children().not('[mobileOn=1]').length;
             fChild = jQuery($this.find('.submed').children()[0]);
 
         $this.attr('mednum', ind);
@@ -12,6 +11,9 @@ function initMenu(){
         if ( jQuery($this.find('a')[0]).text() == fChild.text() ) {
             fChild.attr('mobileOn', 1);
         }
+
+        var numChild = $this.find('.submed')
+            .children().not('[mobileOn=1]').length;
 
         if ( numChild > 0 ) {
             $this.attr('desctOn', 1);
@@ -42,9 +44,7 @@ function destrMobMenu(){
         .find('.submed')
             .off('click', stopBubbling)
             .addClass('ShliambOff')
-            .css('height', 'auto')
-            .find('[mobileOn=1]')
-                .addClass('ShliambOff');
+            .css('height', 'auto');
 }
 
 function initDescMenu(){
@@ -52,7 +52,9 @@ function initDescMenu(){
     jQuery('#menumed').removeClass('ShliambOff');
     jQuery('#mobMenu').addClass('ShliambOff');
 
-    jQuery('.med[desctOn=1]').on('mouseenter', menu_in).on('mouseleave', menu_out);
+    jQuery('.med[desctOn=1]').on('mouseenter', menu_in).on('mouseleave', menu_out)
+        .find('.submed [mobileOn=1]')
+            .addClass('ShliambOff');
 }
 
 function destrDescMenu(){
@@ -91,27 +93,35 @@ function windowSize( event ) {
 }
 
 function menu_close( obj ) {
-    var submed = obj.find('.submed');
+    var submed = obj.find('.submed'),
+        isMob = jQuery(window).attr('isMob') == 1;
 
+    isMob? obj.off('click', menu_touch): '';
+    
     obj.attr('enable', 0);
 
     submed.animate(
         {'height' : 0}, 500, 
         function(){
             submed.addClass('ShliambOff').css('height', 'auto');
+            isMob? obj.on('click', menu_touch): '';
         });
 }
 
 function menu_open( obj ) {
     var submed = obj.find('.submed'), 
-        hSubmed = submed.removeClass('ShliambOff').height();
+        hSubmed = submed.removeClass('ShliambOff').height(),
+        isMob = jQuery(window).attr('isMob') == 1;
 
     obj.attr('enable', 1);
+
+    isMob? obj.off('click', menu_touch): '';
 
     submed.css('height', '0').animate(
         {'height' : hSubmed}, 500, 
         function(){
             submed.css('height', 'auto');
+            isMob? obj.on('click', menu_touch): '';
         });
 }
 
