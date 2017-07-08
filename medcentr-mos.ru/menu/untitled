@@ -1,0 +1,10 @@
+jQuery('.med').each(function(ind){
+    var $this = jQuery(this),
+        fChild = jQuery($this.find('.submed').children()[0]),
+        tMenu = jQuery($this.find('a')[0]).text();
+        tSubmenu = fChild.text();
+
+    if ( tMenu == tSubmenu ) {
+    	fChild.attr('mobileOn', 1).addClass('ShliambOff');
+    }
+});

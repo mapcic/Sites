@@ -3,15 +3,20 @@ function initMenu(){
     jQuery('#mobMenu').on('click', menu_switchMobMenu);
 
     if ( window.matchMedia('(min-width: 980px)').matches ) {
-        destrMobMenu();
         initDescMenu();
     } else {
-        destrDescMenu();
         initMobMenu();
     }
 
     jQuery('.med').each(function(ind){
-        jQuery(this).attr('mednum', ind);
+        var $this = jQuery(this),
+            fChild = jQuery($this.find('.submed').children()[0]);
+
+        $this.attr('mednum', ind);
+
+        if ( jQuery($this.find('a')[0]).text() == fChild.text() ) {
+            fChild.attr('mobileOn', 1);
+        }
     });
 }
 
@@ -21,12 +26,12 @@ function initMobMenu(){
     jQuery('#mobMenu').removeClass('ShliambOff');
 
     jQuery('.med').on('click', menu_touch);
-    jQuery('.submed').on('click', stopBubbling);
+    jQuery('.submed').on('click', stopBubbling).find('[mobileOn=1]').removeClass('ShliambOff');
 }
 
 function destrMobMenu(){
     jQuery('.med').off('click', menu_touch);
-    jQuery('.submed').off('click', stopBubbling);
+    jQuery('.submed').off('click', stopBubbling).find('[mobileOn=1]').addClass('ShliambOff');
 
     jQuery('.med').attr('enable', 0)
         .find('.submed').addClass('ShliambOff').css('height', 'auto');  
@@ -74,10 +79,12 @@ function windowSize( event ) {
 
 function menu_close( obj ) {
     var submed = obj.find('.submed');
+
+    obj.attr('enable', 0);
+
     submed.animate(
         {'height' : 0}, 1000, 
         function(){
-            obj.attr('enable', 0);
             submed.addClass('ShliambOff').css('height', 'auto');
         });
 }
@@ -96,7 +103,7 @@ function menu_open( obj ) {
 }
 
 function menu_openDesc( objIn, objOut ) {
-    clearTimeout(+jQuery(window).attr('menuTimerOut'));
+    // clearTimeout(objIn).attr('menuTimerOut'));
     if (objIn.attr('mednum') != objOut.attr('mednum')){
         menu_close(objOut);
     }
@@ -107,25 +114,26 @@ function menu_openDesc( objIn, objOut ) {
 
 function menu_in( event ) {
     event.preventDefault();
-    clearTimeout(+jQuery(window).attr('menuTimerOut'));
 
     var $this = jQuery(this),
         enabledNode = jQuery('.med[enable=1]');
 
+    clearTimeout(jQuery(window).attr('menuTimerOut'));
+
     menuTimer = setTimeout(menu_openDesc, 1000, $this, enabledNode);
-    jQuery(window).attr('menuTimerIn', menuTimer);
+    $this.attr('menuTimerIn', menuTimer);
 }
 
 function menu_out( event ) {
     event.preventDefault();
-    clearTimeout(+jQuery(window).attr('menuTimerIn'));
-    clearTimeout(+jQuery(window).attr('menuTimerOut'));
 
     var $this = jQuery(this);
 
+    clearTimeout($this.attr('menuTimerIn'));
+
     if ( $this.attr('enable') == 1){
         menuTimer = setTimeout(menu_close, 1000, $this);
-        jQuery(window).attr('menuTimerOut', menuTimer);
+        $this.attr('menuTimerOut', menuTimer);
     }
 }
 
