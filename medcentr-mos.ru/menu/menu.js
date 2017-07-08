@@ -2,14 +2,9 @@ function initMenu(){
     jQuery(window).on('resize', windowSize);
     jQuery('#mobMenu').on('click', menu_switchMobMenu);
 
-    if ( window.matchMedia('(min-width: 980px)').matches ) {
-        initDescMenu();
-    } else {
-        initMobMenu();
-    }
-
     jQuery('.med').each(function(ind){
         var $this = jQuery(this),
+            numChild = $this.find('.submed').children().not('[mobileOn=1]').length;
             fChild = jQuery($this.find('.submed').children()[0]);
 
         $this.attr('mednum', ind);
@@ -17,7 +12,17 @@ function initMenu(){
         if ( jQuery($this.find('a')[0]).text() == fChild.text() ) {
             fChild.attr('mobileOn', 1);
         }
+
+        if ( numChild > 0 ) {
+            $this.attr('desctOn', 1);
+        }
     });
+
+    if ( window.matchMedia('(min-width: 980px)').matches ) {
+        initDescMenu();
+    } else {
+        initMobMenu();
+    }
 }
 
 function initMobMenu(){
@@ -25,16 +30,21 @@ function initMobMenu(){
     jQuery('#menumed').addClass('ShliambOff');
     jQuery('#mobMenu').removeClass('ShliambOff');
 
-    jQuery('.med').on('click', menu_touch);
-    jQuery('.submed').on('click', stopBubbling).find('[mobileOn=1]').removeClass('ShliambOff');
+    jQuery('.med').on('click', menu_touch)
+        .find('.submed').on('click', stopBubbling)
+            .find('[mobileOn=1]').removeClass('ShliambOff');
 }
 
 function destrMobMenu(){
-    jQuery('.med').off('click', menu_touch);
-    jQuery('.submed').off('click', stopBubbling).find('[mobileOn=1]').addClass('ShliambOff');
-
-    jQuery('.med').attr('enable', 0)
-        .find('.submed').addClass('ShliambOff').css('height', 'auto');  
+    jQuery('.med')
+        .off('click', menu_touch)
+        .attr('enable', 0)
+        .find('.submed')
+            .off('click', stopBubbling)
+            .addClass('ShliambOff')
+            .css('height', 'auto')
+            .find('[mobileOn=1]')
+                .addClass('ShliambOff');
 }
 
 function initDescMenu(){
@@ -42,18 +52,21 @@ function initDescMenu(){
     jQuery('#menumed').removeClass('ShliambOff');
     jQuery('#mobMenu').addClass('ShliambOff');
 
-    jQuery('.med').on('mouseenter', menu_in);
-    jQuery('.med').on('mouseleave', menu_out);
+    jQuery('.med[desctOn=1]').on('mouseenter', menu_in).on('mouseleave', menu_out);
 }
 
 function destrDescMenu(){
-    jQuery('.med').off('mouseenter', menu_in);
-    jQuery('.med').off('mouseleave', menu_out);
-
     jQuery('.med').attr('enable', 0)
-        .find('.submed').addClass('ShliambOff').css('height', 'auto');    
-    clearTimeout(+jQuery(window).attr('menuTimerIn'));
-    clearTimeout(+jQuery(window).attr('menuTimerOut'));
+        .filter('[desctOn=1]')
+        .off('mouseenter', menu_in).off('mouseleave', menu_out)
+        .each(function(){
+            var $this = jQuery(this);
+            clearTimeout($this.attr('menuTimerIn'));
+            clearTimeout($this.attr('menuTimerOut'));
+        })
+        .find('.submed')
+            .addClass('ShliambOff')
+            .css('height', 'auto');
 }
 
 
@@ -102,26 +115,31 @@ function menu_open( obj ) {
         });
 }
 
-function menu_openDesc( objIn, objOut ) {
-    // clearTimeout(objIn).attr('menuTimerOut'));
-    if (objIn.attr('mednum') != objOut.attr('mednum')){
-        menu_close(objOut);
-    }
-    if (objIn.attr('enable') != 1){
-        menu_open(objIn);
-    }
+function menu_openDesct( obj ) {
+    var enabledNodes = jQuery('.med[enable=1]');
+
+    enabledNodes.each(function(ind){
+        var $this = jQuery(this);
+        clearTimeout($this.attr('menuTimerOut'));
+        menu_close($this);
+    });
+
+    menu_open()
 }
 
 function menu_in( event ) {
     event.preventDefault();
 
     var $this = jQuery(this),
-        enabledNode = jQuery('.med[enable=1]');
+        enabledNodes = jQuery('.med[enable=1]');
 
-    clearTimeout(jQuery(window).attr('menuTimerOut'));
+    clearTimeout($this.attr('menuTimerOut'));
 
-    menuTimer = setTimeout(menu_openDesc, 1000, $this, enabledNode);
-    $this.attr('menuTimerIn', menuTimer);
+    if ($this.attr('enable') != 1) {
+        menuTimer = setTimeout(menu_openDesct, 1000, $this);
+        $this.attr('menuTimerIn', menuTimer);
+    }
+
 }
 
 function menu_out( event ) {
