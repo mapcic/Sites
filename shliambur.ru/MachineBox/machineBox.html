@@ -1,0 +1,20 @@
+<!-- Img in common heap -->
+<img class="machineImgBox" src="path/to/bad/img" hd="path/to/hd/img">
+<img class="machineImgBox" src="path/to/bad/img" hd="path/to/hd/img">
+<!-- after process it's : <img class="machineImgBox" src="" hd="" mId="" mnId="" mpId=""> -->
+
+<!-- Img in Gallery -->
+<div class="machineGalleryBox">
+	<!-- after process it's : <div class="machineGalleryBox" gId=""> -->
+	<img src="path/to/bad/img" hd="path/to/hd/img">
+	<img src="path/to/bad/img" hd="path/to/hd/img">
+	<!-- after process it's : <img src="" hd="" mId="" mnId="" mpId="" gId=""> -->
+</div>
+
+<!-- Init -->
+<script type="text/javascript" src="/path/to/machineBox.js"></script>
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+		machineBox();
+	});
+</script>
