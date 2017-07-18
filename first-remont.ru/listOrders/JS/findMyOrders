@@ -1,0 +1,90 @@
+// div#searchForm
+function submitOrderForm( event ){
+	event.preventDefault( );
+	
+	var values = { };
+	jQuery.each( jQuery( this ).find( 'input' ).serializeArray( ), function( i, field ){
+		values[ field.name ] = field.value;
+	});
+
+	jQuery.ajax({
+		type: 'POST',
+		url: '/tomahawk/listOrder.php',
+		cache: false,
+		dataType: 'json',
+		data: { params : JSON.stringify( values ) },
+		success: function( data ){
+			if( data.custom_id == false )
+
+		},
+		error: function( data ){
+			showMessege( 'Во время выполнения запроса произошла ошибка' );
+		}
+	});
+}
+
+function printOrderList( ){
+	jQuery( 'div#orderAddDiv input[ type="text" ]' ).attr( 'value','' );
+	jQuery( 'div#orderAddDiv select option[ value="не выбрано" ]' ).attr( 'selected','selected' );
+
+	var trHeadHtml = '
+		<tr class="zags">
+			<td>Номер квитанции:</td>
+			<td>Устройство:</td>
+			<td>Описание ремонта:</td>
+			<td>Статус:</td>
+			<td>Дата добавления:</td>
+			<td>Дата изменения:</td>
+		</tr>',
+	values = {};
+	values['action'] = 'getList';
+	table = jQuery( '#orderListDiv table' );
+	jQuery.ajax({
+		type: 'POST',
+		url: '/tomahawk/components/com_vknews/listOrder.php',
+		dataType: 'json',
+		cache: false,
+		data: { params : JSON.stringify( values ) },
+		success: function( data ){
+			table.empty( );
+			table.append( trHeadHtml );
+			jQuery.each(data, function( i, value ){
+				table.append('
+					<tr>
+						<td>' + value.custom_id + '</td>
+						<td>' + value.title + '</td>
+						<td>' + value.description + '</td>
+						<td>' + value.status + '</td>
+						<td>' + value.add_date + '</td>
+						<td>' + value.last_change_date + '</td>
+						<td> 
+							<form class="orderChangeForm">
+								<input type="hidden" name="id" value="' + value.id + '" />
+								<input type="hidden" name="custom_id" value="' + value.custom_id + '" />
+								<input type="hidden" name="title" value="' + value.title + '" />
+								<input type="hidden" name="description" value="' + value.description + '" />
+								<input type="hidden" name="status" value="' + value.status + '" />
+								<input type="hidden" name="add_date" value="' + value.add_date + '" />
+								<input type="hidden" name="last_change_date" value="' + value.last_change_date + '" />
+								<input type="hidden" name="action" value="change" />
+								<input type="submit" value="Изменить" class="btnshowcart" />
+							</form> 
+						</td>				
+						<td> 
+							<form class="orderHideForm">
+								<input type="hidden" name="id" value="' + value.id + '" />
+								<input type="hidden" name="action" value="hide" />
+								<input type="submit" value="x Удалить" class="btnshowcart" />
+							</form> 
+						</td>
+					</tr>');
+			});
+			jQuery('div#orderListDiv form').submit(submitOrderForm);
+		}
+	});
+}
+
+function showMessege( text ){
+	jQuery('body').append('<div id="orderStatusRequest" style="display: none"><div class="orderChangeSaveDivWrap"></div><div id="orderStatusRequestEcho">'+text+'</div></div>');
+	jQuery('#orderStatusRequest').fadeIn(1000).fadeOut(1000, function() { jQuery('#orderStatusRequest').remove()});
+}

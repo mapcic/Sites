@@ -1,0 +1,10 @@
+<div id="searchFormDiv" style="background:rgba(181, 218, 255, 0.24) url(/templates/rhuk_milkyway/img/noise-bg.png); border-radius: 7px;padding: 20px 2% 30px 2%;box-shadow: inset #fff 1px 1px 1px 1px, rgba(182, 182, 182, 0.56) 0 0 10px, rgba(116, 116, 116, 0.79) 1px 1px 3px;">
+	<form id="searchFormForm">
+		<input class="stats" id="number" name="custom_id" type="text" pattern="[0-9]+" placeholder="Введите номер квитанции" required="required" />
+		<div id="ht"></div>
+		<input type="submit" class="btn-baza" value="Узнать статус заказа"/>
+		<input type="hidden" name="action" value="getStatus" />
+	</form>
+	<div id="searchFormDivResponse">
+	</div>
+</div>

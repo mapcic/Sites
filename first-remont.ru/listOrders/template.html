@@ -1,0 +1,128 @@
+<!-- Добавляем заказ в базу -->
+<div id="orderAddDiv">
+	<form>
+		<table border="0" class="ipod">
+			<tr class="zags">
+				<td colspan="2">Добавить заказ:</td>
+			</tr>
+			<tr>
+				<td>Номер квитанции:</td>
+				<td><input type="text" name="custom_id" /></td>
+			</tr>
+			<tr>
+				<td>Устройство:</td>
+				<td><input type="text" name="title" /></td>
+			</tr>
+			<tr>
+				<td>Описание ремонта:</td>
+				<td><input type="text" name="description" /></td>
+			</tr>
+			<tr>
+				<td>Статус ремонта:</td>
+				<td>
+					<select name="status">
+						<option value="не выбрано">Выберите из списка</option>
+						<option value="выдан">выдан</option>
+						<option value="ремонт выполнен">ремонт выполнен</option>
+						<option value="на диагностике">на диагностике</option>
+						<option value="на чистке">на чистке</option>
+						<option value="в процессе ремонта">в процессе ремонта</option>
+						<option value="в ожидании запчастей">в ожидании запчастей</option>
+						<option value="ожидание решения клиента">ожидание решения клиента</option>
+						<option value="возврат">возврат</option>
+						<option value="отказ">отказ</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+			<td colspan="2"><input type="submit" class="btnshowcart" value="Добавить заказ"/></td>
+			</tr>
+		</table>
+		<input type="hidden" name="action" value="add" />
+	</form>
+</div>
+	<!-- Список всех заказов -->
+<div id="orderListDiv">
+	<h2>Заказы:</h2>
+	<table border="0" class="ipod">
+		<tr class="zags">
+			<td>Номер квитанции:</td>
+			<td>Устройство:</td>
+			<td>Описание ремонта:</td>
+			<td>Статус:</td>
+			<td>Дата добавления:</td>
+			<td>Дата изменения:</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+	<!-- Начало шаблон вывода записей -->
+		<tr>
+			<td>custom_id</td>
+			<td>title</td>
+			<td>description</td>
+			<td>status</td>
+			<td>add_date</td>
+			<td>last_change_date</td>
+			<td> 
+				<form class="orderChangeForm">
+					<input type="hidden" name="id" value="{id}" />
+					<input type="hidden" name="custom_id" value="{custom_id}" />
+					<input type="hidden" name="title" value="{title}" />
+					<input type="hidden" name="description" value="{description}" />
+					<input type="hidden" name="add_date" value="{add_date}" />
+					<input type="hidden" name="last_change_date" value="{last_change_date}" />
+					<input type="hidden" name="action" value="change" />
+					<input type="submit" value="Изменить" class="btnshowcart" />
+				</form> 
+			</td>				
+			<td> 
+				<form class="orderHideForm">
+					<input type="hidden" name="id" value="{id}" />
+					<input type="hidden" name="action" value="hide" />
+					<input type="submit" value="x Скрыть" class="btnshowcart" />
+				</form> 
+			</td>
+		</tr>
+	<!-- Конец шаблона вывода записи -->
+	</table>
+</div>
+<!-- Поле изменения заказа -->
+<div id="orderChangeSaveDiv">
+	<h2>Внести изменения</h2>
+	<form id="orderChangeSaveForm">
+		<table border="0" class="ipod">
+			<tr class="zags">
+				<td>Номер квитанции:</td>
+				<td>Устройство:</td>
+				<td>Описание ремонта:</td>
+				<td>Статус:</td>
+				<td>Дата добавления:</td>
+				<td>Дата изменения:</td>
+			</tr>
+			<tr>
+				<td>'. $task['custom_id'] .'</td>
+				<td> <input type="text" name="title" value="{title}" /></td>
+				<td> <input type="text" name="description" value="{description}" /></td>
+				<td> 					
+					<select name="status">
+						<option value="не выбрано">Выберите из списка</option>
+						<option value="выдан">выдан</option>
+						<option value="ремонт выполнен">ремонт выполнен</option>
+						<option value="на диагностике">на диагностике</option>
+						<option selected="selected" value="на чистке">на чистке</option>
+						<option value="в процессе ремонта">в процессе ремонта</option>
+						<option value="в ожидании запчастей">в ожидании запчастей</option>
+						<option value="ожидание решения клиента">ожидание решения клиента</option>
+						<option value="возврат">возврат</option>
+						<option value="отказ">отказ</option>
+					</select>
+				</td>
+				<td>' {add_date} '</td>
+				<td>' {last_change_date} '</td>
+			</tr>
+		</table>
+		<input type="hidden" name="id" value="{id}" />
+		<input type="hidden" name="action" value="save" />
+		<input type="submit" class="btnshowcart" value="Сохранить"/>
+	</form>
+</div>
