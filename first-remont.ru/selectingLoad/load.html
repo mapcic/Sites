@@ -1,0 +1,83 @@
+<!-- At first, load this -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script type="text/javascript" src="//vk.com/js/api/openapi.js?127"></script>
+<!-- Before scr -->
+<script type="text/javascript">
+	VK.init({apiId: 2313283, onlyWidgets: true});
+</script>
+
+<!-- Add 'name' social, gSocial, vkSocial, yaSocial + add to All class "frOff" -->
+<div name="social" class="d frOff">
+	<div style="margin: 0 0 5px 0;" name="yaSocial" class="yashare-auto-init frOff" data-yashareL10n="ru" data-yashareQuickServices="yaru,vkontakte,facebook,twitter,odnoklassniki,moimir,gplus" data-yashareTheme="counter" data-yasharetype="small"></div>
+	<div name="gSocial" class="g-ytsubscribe frOff" data-channel="firstremont" data-layout="default"></div>
+	<div name="vkSocial" id="vk_like frOff"></div>
+</div>
+<!-- Simple script -->
+<script type="text/javascript">
+	(function($){
+		$(document).ready(function(){
+			if( window.matchMedia('(min-width: 950px)').matches ){
+				var flag = false;
+				if(window.VK){
+					VK.Widgets.Like("vk_like", {type: "mini"});
+					$('div[name=vkSocial]').removeClass('frOff');
+					flag = true;
+				}						
+				scripts = {
+					'yaSocial' : '//yandex.st/share/share.js',
+					'gSocial' : 'https://apis.google.com/js/plusone.js'
+				}
+				$.each(scripts, function(key, val){
+					var script = document.createElement('script');
+					script.src = val;
+					script.onload = function(){
+						$('div[name='+key+']').removeClass('frOff');
+						flag = true;
+					}
+					document.body.appendChild(script);
+				});
+				if(flag){
+					$('div[name=social]').removeClass('frOff');
+				}
+			}
+		});
+	})(jQuery);
+</script>
+<!-- Extend file -->
+<script src="selectingLoad.js"></script>
+<script type="text/javascript">
+	(function($){
+		$(document).ready(function(){
+			loadSocial();
+		});
+	})(jQuery);
+</script>
+
+function loadSocial(){
+	if( window.matchMedia('(min-width: 950px)').matches ){
+		return false;
+	}
+	var flag = false;
+	if(window.VK){
+		VK.Widgets.Like("vk_like", {type: "mini"});
+		$('div[name=vkSocial]').removeClass('frOff');
+		flag = true;
+	}						
+	scripts = {
+		'yaSocial' : '//yandex.st/share/share.js',
+		'gSocial' : 'https://apis.google.com/js/plusone.js'
+	}
+	$.each(scripts, function(key, val){
+		var script = document.createElement('script');
+		script.src = val;
+		script.onload = function(){
+			$('div[name='+key+']').removeClass('frOff');
+			flag = true;
+		}
+		document.body.appendChild(script);
+	});
+	if(flag){
+		$('div[name=social]').removeClass('frOff');
+	}
+	return flag;
+}

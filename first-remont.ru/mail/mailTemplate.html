@@ -1,0 +1,61 @@
+<div id="emailBox" class="emailBox">
+	<h1>Задайте вопрос:</h1>
+	<div style="clear:left;"><span> </span></div>
+	<p>Мы постараемся как можно быстрее ответить на ваш вопрос, а вы, пожалуйста, постарайтесь задать его, максимально развернуто. Спасибо...</p>
+	<p> </p>
+	<br />
+	<form id="emailForm" class="emailBox">
+		Ваш e-mail: <span style="color: #c0c0c0;" required><em> * </em></span><br />
+			<input class="qwz" name="email" type="text" /> <br /><br /> 
+		Ваш телефон: <span style="color: #c0c0c0;"><em> </em></span><br /> 
+			<input id="phoner" class="qwz" name="mob" type="text" value="+7 (___) ___-__-__" placeholder="+7 (___) ___-__-__"/><br /><br /> 
+		Ваш вопрос:<span style="color: #c0c0c0;"><em> * </em></span><br />
+			<textarea class="qwztext" cols="0" name="mess" required></textarea>
+		<p><input id="nextbutton" class="submit" name="comment_send" type="submit" value="Отправить" /></p>
+	</form>
+</div>
+<script language="javascript" type="text/javascript">
+	jQuery('form#emailForm').submit(sentEmail);
+
+	function sentEmail(event){
+		event.preventDefault();
+		
+		email = jQuery(this).find('input[name="email"]').attr('value');
+		mob = jQuery(this).find('input[name="mob"]').attr('value');
+		mess = jQuery(this).find('textarea[name="mess"]').attr('value');
+		
+		jQuery.ajax({
+			type: "POST",
+  			url: "https://mandrillapp.com/api/1.0/messages/send.json",
+		    data: {
+			    'key': 'L5mLLGpOxBd6bMgzbsnh1A',
+			    'message': {
+					'from_email': email,
+					'subject': 'Вопрос с сайта first-remont.ru',
+					'text' : mess, 
+					'from_name' : mob,
+					'to':[{
+					    'email': 'first-remont@mai',
+					    'name': 'Мастеру',
+					    'type': 'to'
+					}]
+			    }
+			},
+		    success: function(data){
+		    	jQuery('form#emailForm input[type="text"]').attr('value','');
+		    	jQuery('form#emailForm textarea[name="mess"]').attr('value','');
+		    	showMessege( 'Отправлено' );
+		    },
+		    error: function(data){
+		    	showMessege( 'Проверьте адрес электронной почты и повторите попытку');
+		    }
+		});
+	}
+
+	function showMessege( text ){
+		jQuery('body').append('<div id="orderStatusRequest" style="display: none"><div class="orderChangeSaveDivWrap"></div><div id="orderStatusRequestEcho"><h2>'+text+'</h2></div></div>');
+		jQuery('#orderStatusRequest').fadeIn(1000).fadeOut(1000, function() { jQuery('#orderStatusRequest').remove()});
+	}
+
+
+</script>

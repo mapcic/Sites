@@ -1,0 +1,43 @@
+<div id="searchFormDiv">
+    <noindex>
+        <div id="searchFormForm" style="margin:0;">
+            <input class="stats" id="number" name="custom_id" type="text" pattern="[0-9]+" placeholder="Номер квитанции" required>
+            <input type="submit" class="cnop2" value="Статус">
+            <input type="hidden" name="action" value="getStatus">
+        </div>
+        <div id="searchFormDivResponse" class="frOff"></div>
+    </noindex>
+</div>
+
+<div id="blackF">
+    <div id="resBaz">
+        <a style="float:right;" class="question"> Вернуться </a>
+        <p class="zag">Результат: 
+            <a class="yakor one" style="margin:0 0 0 10px !important;" target="_blank" href="/question/">уточнить</a>
+        </p>
+        <div class="blad">
+            <table id="searchFormDivTable" class="frOff" border="0" class="itop">
+                <thead>
+                    <tr class="zags">
+                        <td>Номер квитанции:</td>
+                        <td>Устройство:</td>
+                        <td>Ремонт:</td>
+                        <td>Статус:</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td name="custom_id"></td>
+                        <td name="title"></td>
+                        <td name="description"></td>
+                        <td name="status"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="emptyResponse" class="frOff">
+                <p>К сожалению, такого номера квитанции не существует!</p>
+                <p>Номер квитанции находиться на самой квитанции!)</p>
+            </div>
+        </div>
+    </div>
+</div>

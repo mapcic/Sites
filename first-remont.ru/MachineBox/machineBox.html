@@ -1,0 +1,41 @@
+<!-- Img in common heap -->
+<img class="machineImgBox" src="path/to/bad/img" hd="path/to/hd/img">
+<img class="machineImgBox" src="path/to/bad/img" hd="path/to/hd/img">
+<!-- after process it : <img class="machineImgBox" src="" hd="" mId="" mnId="" mpId=""> -->
+
+<!-- Img in Gallery -->
+<div class="machineGalleryBox">
+	<!-- after process it : <div class="machineGalleryBox" gId=""> -->
+	<img src="path/to/bad/img" hd="path/to/hd/img">
+	<img src="path/to/bad/img" hd="path/to/hd/img">
+	<!-- after process it : <img src="" hd="" mId="" mnId="" mpId="" gId=""> -->
+</div>
+
+<!-- Structure Box -->
+
+<div id="machineBox">
+	<div id="machineDimmer"></div>
+	<div id="machineImgBox" class="machineOff">
+		<div id="machinePreviosImg">
+			<div class="machinePreviosT"></div>
+		</div>
+		<img src="" mnId="" mpId="" gId="">
+		<div id="machineNextImg">
+			<div class="machineNextT"></div>
+		</div>
+		<div id="machineCloseBox">
+			<span id="machineCloseX">X</span>
+		</div>
+	</div>
+</div>
+
+<!-- Init -->
+
+<script type="text/javascript" src="/path/to/machineBox.js"></script>
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+		machineBox();
+	});
+</script>
+
+<style type="text/css"></style>

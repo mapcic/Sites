@@ -1,0 +1,39 @@
+<!-- Need add 
+	<div id="main-block-wrap" offset="0"></div>
+	#main-block-wrap{
+		position : absolute;
+	}
+	.submenu{
+		position : relative;
+	}
+
+
+	!!! add smooth = 1
+
+	add #mobMenu
+	add loadedMob
+	add <div class="mobSubmenu frOff"></div>
+
+	add to css in media( min-width:980){
+		.mobSubmenu{
+			display : none;
+		}
+	}
+-->
+<div id="menu">
+	<div id="submenus">
+		<div class="submenus menu ipod" menu="103" loadedMob="-1" loaded="-1" sort="hits" order="DESC">
+			<a href="/"></a>
+			<div class="mobSubmenu frOff"></div>
+		</div>		
+		<div class="submenus menu iphone" menu="126" loadedMob="-1" loaded="-1" sort="hits">
+			<a href="/"></a>
+			<div class="mobSubmenu frOff"></div>
+		</div>
+		<div class="submenus menu gpu" menu="174" loadedMob="-1" loaded="-1" sort="title" order="DESC">
+			<a href="/"></a>
+			<div class="mobSubmenu frOff"></div>
+		</div>
+	</div>
+	<div id="submenu" class="frOff"></div>
+</div>
