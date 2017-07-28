@@ -7,7 +7,7 @@ function initMarketBoxMachine() {
 				navNode = jQuery('<div class="circle"></div>').appendTo(bar)
 					.attr('ind', ind);
 		});
-		$this.find('.LinkssBoxMBM div').each(function(ind){
+		$this.find('.LinksBoxMBM div').each(function(ind){
 			jQuery(this).attr('ind', ind);
 		});
 
