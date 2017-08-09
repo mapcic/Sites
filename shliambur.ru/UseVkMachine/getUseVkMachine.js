@@ -1,8 +1,7 @@
 function getUseVkMachine(){
 	jQuery.ajax({
 		url:"path/to/getUseVkMachine.php",
-		// url:"http://machine.shliambur.ru/vkmachine.getUseVkMachine",
-		dataType: 'jsonp',
+		dataType: 'json',
 		success: function( resp ) {
 			jQuery('#useVkMachine .uvmNum').html(resp.num);
 		},
@@ -11,3 +10,7 @@ function getUseVkMachine(){
 		}
 	});
 }
+
+jQuery(document).ready(function(){
+	getUseVkMachine();
+});
