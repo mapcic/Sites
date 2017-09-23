@@ -1,8 +1,9 @@
 function mail_init() {
-	jQuery('.mail .send').on('click', send_email);
+	emailjs.init("user_XdnNFHlwt5E2mj4DHZJ99");
+	jQuery('.mail .send').on('click', send_mail);
 }
 
-function send_mail { 
+function send_mail() { 
 	var $this = jQuery(this),
 		form = $this.find('.mail'),
 		name = form.find('.name'),
@@ -14,13 +15,15 @@ function send_mail {
 	// 	return 0;
 	// }
 
+	console.log('try');
 	Email.send(
 		"prmaximus@yandex.ru",
 		email.val(),
-		"Вопрос мастеру.",
+		'Вопрос мастеру.',
 		'Имя:'+name.val()+'Телефон:'+phone.val()+'<br>'+msg.val(),
-		{token: "63cb3a19-2684-44fa-b76f-debf422d8b00"}
+		{token: '98a43ab0-e0e5-4ca2-8585-76cbd633c91e'}
 	);
+	console.log('send');
 }
 
 function clear_string( str ) {
