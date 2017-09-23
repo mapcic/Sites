@@ -4,28 +4,25 @@ function mail_init() {
 
 function send_mail() { 
 	var $this = jQuery(this),
-		form = $this.find('.mail'),
+		form = $this.parents('.mail'),
 		name = form.find('.name'),
 		phone = form.find('.phone'),
 		email = form.find('.email'),
 		msg = form.find('.msg');
 
-	// if ( !is_email(email.val()) || !is_msg(msg.val)) {
-	// 	return 0;
-	// }
-
-	console.log('try');
+	if ( !is_email(email.val()) || !is_msg(msg.val)) {
+		return 0;
+	}
 
 	jQuery.ajax({
-		type: 'POST', url: 'php/mailer.php',
+		type: 'POST', url: '/templates/protostar/php/mail.php',
 	    data: {
-	    	name : name,
-	    	email : email, 
-	    	phone : phone,
-	    	msg : msg
+	    	'name' : name.val(),
+	    	'email' : email.val(), 
+	    	'phone' : phone.val(),
+	    	'msg' : msg.val()
 		},
 		success: function(data) {
-			console.log('good');
 			jQuery.each([name, email, phone, msg], function(ind, val) {
 				val.val('');
 			});

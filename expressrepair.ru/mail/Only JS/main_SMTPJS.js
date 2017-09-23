@@ -1,5 +1,4 @@
 function mail_init() {
-	emailjs.init("user_XdnNFHlwt5E2mj4DHZJ99");
 	jQuery('.mail .send').on('click', send_mail);
 }
 
@@ -21,7 +20,7 @@ function send_mail() {
 		email.val(),
 		'Вопрос мастеру.',
 		'Имя:'+name.val()+'Телефон:'+phone.val()+'<br>'+msg.val(),
-		{token: '98a43ab0-e0e5-4ca2-8585-76cbd633c91e'}
+		{token: ''}
 	);
 	console.log('send');
 }

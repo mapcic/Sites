@@ -1,32 +1,30 @@
 <?php 
-require 'PHPMailerAutoload.php';
+// require 'PHPMailerAutoload.php';
+use PHPMailer\PHPMailer\PHPMailer;
+require 'PHPMailer.php';
 
-$mail = new PHPMailer;
-
-$mail->isSMTP();            
-$mail->SMTPDebug = 2;                               
+$mail = new PHPMailer;                            
 
 $mail->SMTPAuth = true;                          
 $mail->Host = 'smtp.yandex.ru';
-$mail->Username = 'prmaximus@yandex.ru';                 
+$mail->Username = '';                 
 $mail->Password = '';                           
 $mail->SMTPSecure = 'ssl';                           
 $mail->Port = 465;                                   
 
 $mail->From = $_POST['email'];
-// $mail->FromName = 'Full Name';
+$mail->FromName = $_POST['name'].' '.$_POST['phone'];
 
-$mail->addAddress('prmaximus@yandex.ru', 'Recepient Name');
+$mail->addAddress('', 'Recepient Name');
 
 $mail->isHTML(true);
 
 $mail->Subject = 'Вопрос мастеру.';
-$mail->Body = 'Имя:'.$_POST['name'].'Телефон:'.$_POST['phone'].'<br>'.$_POST['msg'];
-// $mail->AltBody = 'This is the plain text version of the email content';
+$mail->Body = $_POST['msg'];
 
 if(!$mail->send()) {
-    echo 'Mailer Error: ' . $mail->ErrorInfo;
+    echo 0;
 } else {
-    echo 'Message has been sent successfully';
+    echo 1;
 }
 ?>
