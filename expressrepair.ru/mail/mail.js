@@ -15,7 +15,7 @@ function send_mail() {
 	}
 
 	jQuery.ajax({
-		type: 'POST', url: '/templates/protostar/php/mail.php',
+		type: 'POST', url: 'mail.php',
 	    data: {
 	    	'name' : name.val(),
 	    	'email' : email.val(), 
