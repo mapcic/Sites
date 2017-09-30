@@ -10,7 +10,7 @@ function send_mail() {
 		email = form.find('.email'),
 		msg = form.find('.msg');
 
-	if ( !is_email(email.val()) || !is_msg(msg.val)) {
+	if ( !is_email(email.val()) || !is_msg(msg.val()) ) {
 		return 0;
 	}
 
