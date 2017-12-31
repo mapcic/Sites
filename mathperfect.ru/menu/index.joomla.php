@@ -29,13 +29,22 @@
 				->loadObjectList();
 
 			foreach ( $menus as $key => $menu ) {
-				echo preg_replace( array( '/\${href}/', '/\${title}/' ), 
-					array( $menu->home == 1? '/' : $menu->path, $menu->title ), 
+				echo preg_replace( array( '/\${href}/', '/\${title}/' ),
+					array( $menu->home == 1? '/' : $menu->path, $menu->title ),
 					$menu_node );
 			}
 			?></ul>
 	 </nav>
 	 <a href="#"><span class="fa fa-bars fa-2x"></span></a> <!-- mobile menu -->
 </section>
+
+<script>
+(function($) {
+	var href = <?php echo $path;?>;
+	$( document ).ready( function(){
+		$('.nav_link[]').
+	} );
+})(jQuery)
+</script>
 <!-- end of navigation -->
 {/source}
