@@ -13,8 +13,12 @@
 			$db = JFactory::getDbo();
 			$query = $db->getQuery( true );
 			$menus = [];
+			$active_class = 'nav__link_active';
 
-			$menu_node = '<li class="nav__item"><a class="nav__link" href="${href}">${title}</a></li>';
+			$uri = JFactory::getURI();
+			$path = $uri->getPath();
+
+			$menu_node = '<li class="nav__item"><a class="nav__link ${is_active}" href="${href}">${title}</a></li>';
 
 			$query->select( $db->qn( array(
 					'title',
@@ -29,8 +33,14 @@
 				->loadObjectList();
 
 			foreach ( $menus as $key => $menu ) {
-				echo preg_replace( array( '/\${href}/', '/\${title}/' ),
-					array( $menu->home == 1? '/' : $menu->path, $menu->title ),
+				$is_active = $menu->path == $path || $menu->home == 1 ?
+				 	'nav__link_active' : '';
+				$href = $menu->home == 1?
+					'/' : $menu->path;
+
+				echo preg_replace(
+					array( '/\${href}/', '/\${title}/', '/\${is_active}/' ),
+					array( $href, $menu->title, $is_active ),
 					$menu_node );
 			}
 			?></ul>
