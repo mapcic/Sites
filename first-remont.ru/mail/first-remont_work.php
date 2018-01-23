@@ -9,7 +9,7 @@
 	height: 100%;
 	display: flex;
 	align-items: center;
-	justify-content: center; 
+	justify-content: center;
 }
 div.boxi {
 	background: #fff;
@@ -26,7 +26,7 @@ div.boxi {
 	<div id="email">Ваш e-mail: <span style="color: #c0c0c0;" required><em> * </em></span><br />
 		<input class="qwz" name="email" type="text"></input>
 	</div>
-	<div id="phoner">Ваш телефон: <span style="color: #c0c0c0;"><em> </em></span><br /> 
+	<div id="phoner">Ваш телефон: <span style="color: #c0c0c0;"><em> </em></span><br />
 		<input class="qwz" name="phoner" type="text" value="+7 (___) ___-__-__" placeholder="+7 (___) ___-__-__"></input>
 	</div>
 	<div id="message">Ваш вопрос:<span style="color: #c0c0c0;"><em> * </em></span><br />
@@ -79,7 +79,7 @@ jQuery(document).ready(function($){
 <!-- Server part -->
 <?php
 define( '_JEXEC', 1 );
-define( 'DS', DIRECTORY_SEPARATOR );    
+define( 'DS', DIRECTORY_SEPARATOR );
 define( 'JPATH_BASE', preg_replace('/(?:\/[\w\-]+){3}$/', '', dirname(__FILE__)) );
 
 require_once ( JPATH_BASE .DS.'includes'.DS.'defines.php' );

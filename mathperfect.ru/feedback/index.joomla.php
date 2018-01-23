@@ -18,32 +18,35 @@
 </section>
 
 <script>
-const $ = jQuery;
+( function($){
+    $( document ).ready( function(){
+        var name = $('.feedback input[name="name"]');
+        var email = $('.feedback input[name="email"]');
+        var msg = $('.feedback textarea');
 
-$(document).ready(function(){
-    const name = $('.feedback input[name="name"]');
-    const email = $('.feedback input[name="email"]');
-    const msg = $('.feedback textarea[name="msg"]');
+        $('section.feedback .btn').on( 'click', function( e ){
+            e.preventDefault();
 
-    const params = { name: name.val(),
-         email: email.val(),
-         msg: msg.val()
-     };
+            var params = {
+                name: name.val(),
+                email: email.val(),
+                msg: msg.val()
+            };
 
-     console.log( params );
+            console.log(params);
 
-    $.ajax({
-        url: '/templates/mathperfect/php/email.php',
-        data: { params },
-        type: 'POST',
-        dataType: 'json',
-        success: function( data ){
-            name.val('');
-            email.val('');
-            msg.val('');
-        }
-    })
-});
-
+            $.ajax({
+                url: '/templates/mathperfect/email.php',
+                data: { params }, type: 'POST', dataType: 'json',
+                success: function( data ){
+                    console.log(data);
+                    name.val('');
+                    email.val('');
+                    msg.val('');
+                }
+            })
+        } );
+    } );
+} )( jQuery );
 </script>
 {/source}

@@ -58,27 +58,27 @@ function add(){
 		echo( json_encode( '<h1>Уже сущетсвует!</h1>' ) );
 		exit;
 	}
-	
+
 	$columns = array(
-	    'custom_id', 
-	    'title', 
-	    'description', 
+	    'custom_id',
+	    'title',
+	    'description',
 	    'status'
 	);
 	$values = array(
-	    $db->quote( $fields->custom_id ),  
-	    $db->quote( $fields->title ), 
-	    $db->quote( $fields->description ), 
+	    $db->quote( $fields->custom_id ),
+	    $db->quote( $fields->title ),
+	    $db->quote( $fields->description ),
 	    $db->quote( $fields->status )
 	);
-	 
+
 	$query  ->insert( $db->quoteName( '#__custom_tasks' ) )
 	    	->columns( $db->quoteName( $columns ) )
 	    	->values( implode( ',', $values ) );
-	
+
 	$db 	->setQuery( $query )
 	    	->execute( );
-    
+
     echo( json_encode( '<h1>Добавлено!</h1>' ) );
 }
 
@@ -91,10 +91,10 @@ function hide( ){
 
 	$query 	->delete($db->quoteName('#__custom_tasks'))
     		->where($conditions);
-    
+
     $db 	->setQuery( $query )
     		->execute();
-    
+
     echo( json_encode( '<h1>Удалено!</h1>' ) ) ;
 }
 
@@ -110,11 +110,11 @@ function save( ){
 		$db->quoteName( 'last_change_date' ).'="'.date( 'Y-m-d H:i:s' ).'"'
 	);
 	$conditions = $db->quoteName( 'id' ).'='.$db->quote( $fields->id );
-	
+
 	$query 	->update( $db->quoteName( '#__custom_tasks' ) )
     		->set( $fieldsQuery )
     		->where( $conditions );
-    
+
     $db 	->setQuery( $query )
     		->execute( );
 
@@ -129,9 +129,9 @@ $nameFuncs = [
 	'save'
 ];
 
-$nameFunc = json_decode( $_POST[ 'params' ] )->action;
+// $nameFunc = json_decode( $_POST[ 'params' ] )->action;
 
-if($nameFunc in nameFuncs){
-	$nameFunc( );
+if( in_array( $nameFunc, $nameFuncs ) ) {
+	$nameFunc();
 }
 ?>

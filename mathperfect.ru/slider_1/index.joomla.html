@@ -1,0 +1,82 @@
+{source}
+<style>
+#slide {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+.slide__items {
+    flex: 0 0 auto;
+    width: 30%;
+    margin: 20px;
+    margin-left: 1.5%;
+    margin-right: 2%;
+    border-top: 13px solid #212121;
+    border-right: 10px solid #212121;
+    border-bottom: 13px solid #212121;
+    border-left: 10px solid #212121;
+}
+
+.test {
+    display: flex;
+    /* flex: 0 0 auto; */
+    /* width: auto; */
+}
+
+@media all and (max-width: 768px) {
+    .hidden-sm-down {
+        display: none;
+    }
+    .slide__items {
+        width: 98%;
+    }
+}
+</style>
+
+<div class="sertificates">
+<header>
+<h2>Грамоты</h2>
+</header>
+    <div class="slider">
+        <span class="control control__left fa fa-angle-left fa-3x"></span>
+        <div classs="slide" id="slide">
+            <div class="test">
+                <div class="slide__items">
+                        <span>
+                            <img src="/templates/mathperfect/img/sertificate-13.jpg" alt="" class="img">
+                        </span>
+                </div>
+                <div class="slide__items hidden-sm-down">
+                    <span>
+                        <img src="/templates/mathperfect/img/sertificate-14.jpg" alt="" class="img">
+                    </span>
+                </div>
+                <div class="slide__items hidden-sm-down">
+                    <span>
+                        <img src="/templates/mathperfect/img/sertificate-15.jpg" alt="" class="img">
+                    </span>
+                </div>
+                <div class="slide__items hidden-sm-down">
+                        <span>
+                            <img src="/templates/mathperfect/img/sertificate-13.jpg" alt="" class="img">
+                        </span>
+                </div>
+                <div class="slide__items hidden-sm-down">
+                    <span>
+                        <img src="/templates/mathperfect/img/sertificate-14.jpg" alt="" class="img">
+                    </span>
+                </div>
+                <div class="slide__items hidden-sm-down">
+                    <span>
+                        <img src="/templates/mathperfect/img/sertificate-15.jpg" alt="" class="img">
+                    </span>
+                </div>
+            </div>
+        </div>
+        <span class="control control__right fa fa-angle-right fa-3x"></span>
+    </div>
+</div>
+{/source}

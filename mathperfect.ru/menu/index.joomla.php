@@ -3,12 +3,11 @@
 <section class="navbar">
 	<header class="navbar-header">
 		<span class="logo">
-			<img src="img/128.png" alt="">
+			<img src="/templates/mathperfect/img/logo.png" width="220px" alt="">
 		</span>
-		<p class="navbar__title">MATHPERFECT</p>
 	</header>
 
-	 <nav class="nav">
+	 <nav class="nav hidden-lg-down">
 		 <ul class="nav__list"><?php
 			$db = JFactory::getDbo();
 			$query = $db->getQuery( true );
@@ -27,13 +26,14 @@
 					'home' ) ) )
 				->from( $db->qn( '#__menu' ) )
 				->where( $db->qn( 'published' ) . ' = 1' )
+				->where( $db->qn( 'level' ) . ' = 1' )
 				->where( $db->qn( 'menutype' ) . ' = ' . $db->q( 'mainmenu' ) );
 
 			$menus = $db->setQuery( $query )
 				->loadObjectList();
 
 			foreach ( $menus as $key => $menu ) {
-				$is_active = $menu->path == $path || $menu->home == 1 ?
+				$is_active = '/'.$menu->path == $path || ( $menu->home == 1 && $path == '/' ) ?
 				 	'nav__link_active' : '';
 				$href = $menu->home == 1?
 					'/' : $menu->path;
@@ -45,16 +45,19 @@
 			}
 			?></ul>
 	 </nav>
-	 <a href="#"><span class="fa fa-bars fa-2x"></span></a> <!-- mobile menu -->
+	 <a href="#" class="hidden-xl-up"><span class="fa fa-bars fa-2x"></span></a> <!-- mobile menu -->
 </section>
 
 <script>
-(function($) {
-	var href = <?php echo $path;?>;
+( function( $ ){
 	$( document ).ready( function(){
-		$('.nav_link[]').
+		$( 'section.navbar a.hidden-xl-up' ).on( 'click', switch_mob_menu );
 	} );
-})(jQuery)
+
+	function switch_mob_menu(){
+		$( 'section.navbar nav.nav' ).toggle( '.hidden-lg-down' );
+	}
+} )( jQuery )
 </script>
 <!-- end of navigation -->
 {/source}

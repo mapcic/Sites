@@ -4,11 +4,11 @@
   if (!defined('_MACHINE_ON')) {
       define( '_MACHINE_ON', 1 );
   }
-  
+
   include('framework.php');
 
   $db = new MachineDbSqlMysqli( new MachineConfig );
-  
+
   $query = $db->getQuery()
     ->select('*')
     ->from($db->quoteName('#__salary_url'))
@@ -29,11 +29,11 @@
   $db->updateObject('#__salary_url', $data, 'id');
 
   $file = $result->url;
-    
+
     if (!file_exists($file)){
       return false;
     }
-    
+
     if (ob_get_level()){
       ob_end_clean();
     }
@@ -46,22 +46,21 @@
     header('Cache-Control: must-revalidate');
     header('Pragma: public');
     header('Content-Length: ' . filesize($file));
-    
+
     readfile($file);
     unlink($file);
-    
+
     return true;
-
-
+?>
   <?php
     if (!defined('_MACHINE_ON')) {
         define( '_MACHINE_ON', 1 );
     }
-    
+
     include('framework.php');
 
   $db = new MachineDbSqlMysqli( new MachineConfig );
-  
+
   $query = $db->getQuery()
     ->select('*')
     ->from($db->quoteName('#__salary_url'))
@@ -97,6 +96,7 @@
     readfile($file);
     unlink($file);
   }
-    
-    
+
+
 exit;
+?>
