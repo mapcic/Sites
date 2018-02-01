@@ -4,10 +4,10 @@
 $db = JFactory::getDbo();
 $query = $db->getQuery( true );
 
-$menutype = 'hidemenu'; // menutype id is 2;
+$menutype = 'mainmenu'; // menutype id is 2;
 // $parent_menu_id = 117;
 
-$num = 6;
+$num = 2;
 $offset = 0;
 
 $default_img = '/templates/mathperfect/img/janko-ferlic-174927-jpg.jpg';
@@ -110,7 +110,7 @@ foreach( $news as $part ) {
         var cur_number = that.find( 'article' ).length;
         var parent_id = <?php echo $parent_menu_id;?>;
 
-        offset = is_next? offset : offset - count - cur_number;
+        offset = is_more? offset : offset - count - cur_number;
 
         $.ajax({
             url: '/templates/mathperfect/khobby_news.php',
@@ -124,7 +124,7 @@ foreach( $news as $part ) {
             success: function( data ) {
                 // that.find( 'article' ).remove();
                 $.each( data, function( ind, val ){
-                    that.append( $(val) );
+                    $( that.find('article').last() ).after( $(val) );
                 } );
 
                 info.attr( 'offset', offset + data.length );
@@ -134,9 +134,12 @@ foreach( $news as $part ) {
     }
 
     function turn_flipping() {
+        nav.off( 'click', flipping );
         nav.on( 'click', flipping );
-        if( +info.attr( 'offset' ) == +info.attr( 'number' ) )
-            nav.filter( '.more_news' ).off( 'click', flipping );
+        if( +info.attr( 'offset' ) == +info.attr( 'number' ) ){
+            console.log(1);
+            nav.filter( '.more_news' ).off( 'click', flipping ).hide();
+        }
     }
 })(jQuery);
 </script>

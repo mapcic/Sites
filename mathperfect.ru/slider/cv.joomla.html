@@ -38,7 +38,7 @@
             $title = $cv->title;
             $href = $cv->path;
 
-            preg_match( '/<img[^\>]*src="([^\>"]*)"[^\>]*>/U', $src->introtext, $matches );
+            preg_match( '/<img[^\>]*src="([^\>"]*)"[^\>]*>/U', $cv->introtext, $matches );
             $src = count($matches) > 1 ? $matches[1] : $default_img;
 
             $max_words = 20;
@@ -66,7 +66,7 @@
                         </button>
                     </div>
                     <span>
-                        <img class="slide_src" src="" class="img">
+                        <img src="" class="img slide_src">
                     </span>
                 </div>
             </div>
@@ -91,6 +91,7 @@
 
             return data;
         });
+
         const slen = slides.length;
         const $slides = $slider_wrap.find( '.slide__item' );
 
@@ -101,6 +102,8 @@
             $val.find( '.slide_src' ).attr( 'src', slides[ind].src );
             $val.find( '.slide_href' ).attr( 'href', slides[ind].href );
             $val.find( '.slide_intro' ).html( slides[ind].intro );
+
+            $val.attr( 'ind', ind );
         });
 
         const $btns = $slider_wrap.find( '.control' ).on( 'click', function( event ) {
@@ -120,6 +123,8 @@
                 $val.find( '.slide_src' ).attr( 'src', slides[next_ind].src );
                 $val.find( '.slide_href' ).attr( 'href', slides[next_ind].href );
                 $val.find( '.slide_intro' ).html( slides[next_ind].intro );
+
+                $val.attr( 'ind', next_ind );
             } );
         } );
     } );

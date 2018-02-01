@@ -44,7 +44,7 @@ $html = '<article class="preview preview_big">'.
                 '<p>${intro}</p>'.
             '</div>'.
             '<span class="preview__img">'.
-                '<img class="img" src="${src}">'.
+                '<img class="img" src="/${src}">'.
             '</span>'.
         '</div>'.
     '</article>';
