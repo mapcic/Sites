@@ -22,28 +22,31 @@ preg_match( '/^\/([^\/]*)/', $path, $root_path_arr );
 
 $root_path = $path == '/'? 'glavnaya' : $root_path_arr[1];
 
-$breadCrumbs = '';
+$breadCrumbs = [];
 $paths = [];
+$parts = array_slice(explode( '/', $path ), 1);
+$breadCrumbsHtml = '';
 
-if( $path != '/' ) {
-    $parts = explode( '/', $path );
-    
-    for ($i=0; $i < count( $parts ); $i++) { 
-        $paths[] = $i == 0? $parts[0].'/' : $paths[ $i - 1 ].$parts[ $i ].'/';
+if( $path != '/' && count($parts) > 1) {
+
+    for ($i=0; $i < count( $parts ) - 1; $i++) {
+        $paths[] = $i == 0? $parts[0] : $paths[ $i - 1 ].'/'.$parts[ $i ];
     }
-  
+
     $query = $db->getQuery(true)
         ->select( $db->qn( array( 'title', 'path' ) ) )
         ->from( $db->qn('#__menu') )
-        ->where( $db->qn( 'path' ).' IN ('. implode( ', ', $paths ) .')')
-        ->order( $db->qn( 'path' ))
+        ->where( $db->qn( 'path' ).' IN ('. implode( ', ', $db->q($paths) ) .')')
+        ->order( $db->qn( 'path' ));
 
     $crumbs = $db->setQuery( $query )
         ->loadObjectList();
 
-    for ($i=0; $i < count($crumbs); $i++) { 
-        $breadCrumbs = $breadCrumbs.'\/<div class="breadCrumbs"><a href="\/'.$crumbs[i]->path.'">'.$crumbs[i]->title.'</div>'
+    for ($i=0; $i < count($crumbs); $i++) {
+        $breadCrumbs[] = '<div class="breadCrumbs__item"><a href="/'.$crumbs[$i]->path.'">'.$crumbs[$i]->title.'</a></div>';
     }
+
+    $breadCrumbsHtml = implode('<div class="breadCrumbs__item_separator">/</div>', $breadCrumbs);
 }
 
 ?>
@@ -52,7 +55,7 @@ if( $path != '/' ) {
     	<span class="icon">
     		<img src="/templates/<?php echo($doc->template.DS.'icons'.DS.$root_path);?>.png" alt="">
     	</span>
-        <div id="breadcrumbs"><?php echo $breadCrumbs; ?></div>
+        <div class="breadCrumbs"><?php echo $breadCrumbsHtml; ?></div>
     	<h3><?php echo $title; ?></h3>
     </div>
 {/source}
