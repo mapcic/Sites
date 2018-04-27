@@ -1,0 +1,192 @@
+{source}
+<style>
+.ct_gallery {
+    position: relative;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-bottom: 40px;
+}
+
+.ct_gallery .ct_list {
+    overflow: hidden;
+}
+
+.ct_slider {
+    display: flex;
+    width: 100%;
+}
+
+.ct_gallery .ct_button {
+    align-self: center;
+    margin: 1em;
+}
+
+.ct_gallery .ct_img {
+    flex-basis: inherit;
+    flex-grow: 1;
+    flex-shrink: 0;
+
+    border: 10px solid black;
+    box-sizing: border-box;
+
+    height: 100%;
+
+    margin: 0 10px;
+
+    overflow: hidden;
+}
+
+.ct_gallery .ct_flex_wrap {
+     margin-top: 40px;
+    display: flex;
+    position: relative;
+    align-items: center;
+}
+
+.ct_img img {
+    height: auto;
+    max-width: 100%;
+    min-width: 100%;
+}
+
+</style>
+    <div class="ct_gallery">
+    	<header>
+    		<h2>Диплом, сертификаты и грамоты</h2>
+    	</header>
+    	<div class="ct_slider">
+    		<div class="ct_button ct_left fa fa-angle-left fa-3x"></div>
+
+    		<div class="ct_list">
+    			<div class="ct_flex_wrap machineGalleryBox">
+    				<div class="ct_img">
+    					<img src="/templates/mathperfect/img/1.jpg">
+    				</div>
+    				<div class="ct_img">
+    					<img src="/templates/mathperfect/img/2.jpg">
+    				</div>
+    				<div class="ct_img">
+    					<img src="/templates/mathperfect/img/3.jpg">
+    				</div>
+    				<div class="ct_img">
+    					<img src="/templates/mathperfect/img/4.jpg">
+    				</div>
+    				<div class="ct_img">
+    					<img src="/templates/mathperfect/img/5.jpg">
+    				</div>
+    				<div class="ct_img">
+    					<img src="/templates/mathperfect/img/6.jpg">
+    				</div>
+    				<div class="ct_img">
+    					<img src="/templates/mathperfect/img/7.jpg">
+    				</div>
+    				<div class="ct_img">
+    					<img src="/templates/mathperfect/img/8.jpg">
+    				</div>
+    				<div class="ct_img">
+    					<img src="/templates/mathperfect/img/9.jpg">
+    				</div>
+    				<div class="ct_img">
+    					<img src="/templates/mathperfect/img/10.jpg">
+    				</div>
+    				<div class="ct_img">
+    					<img src="/templates/mathperfect/img/11.jpg">
+    				</div>
+    				<div class="ct_img">
+    					<img src="/templates/mathperfect/img/12.jpg">
+    				</div>
+    				<div class="ct_img">
+    					<img src="/templates/mathperfect/img/13.jpg">
+    				</div>
+    				<div class="ct_img">
+    					<img src="/templates/mathperfect/img/14.jpg">
+    				</div>
+    				<div class="ct_img">
+    					<img src="/templates/mathperfect/img/15.jpg">
+    				</div>
+    				<div class="ct_img">
+    					<img src="/templates/mathperfect/img/15.jpg">
+    				</div>
+    			</div>
+    		</div>
+
+    		<div class="ct_button ct_rigth fa fa-angle-right fa-3x"></div>
+    	</div>
+    </div>
+
+    <script>
+    	jQuery(document).ready(function($) {
+
+    		$( 'main' ).css( 'overflow', 'hidden' );
+
+    		const gallery = $( '.ct_gallery' );
+    		const slider = gallery.find( '.ct_slider' );
+    		const slides = slider.find( 'img' );
+    		const lenSlides = slides.length;
+    		const wrap = gallery.find( '.ct_flex_wrap' );
+    		const buttons = gallery.find( '.ct_button' );
+    		const margin = 10;
+
+    		buttons.attr( 'index', 0 );
+
+    		let stopNext = 0;
+    		const stopPrev = 0;
+
+    		wrap.css( 'left', 0 );
+
+    		$( window ).resize( () => {
+    			const isMobile = window.matchMedia( "(max-width: 576px)" ).matches;
+    			const wrapWidth = wrap.innerWidth();
+    			const slideWidth = !isMobile? ( wrapWidth - 60 )/3 : wrapWidth - 20;
+
+    			wrap.css( 'flex-basis', slideWidth );
+
+    			const resizeOffset = -( slideWidth +20 )*( +buttons.attr( 'index' ));
+    			wrap.css( 'left', resizeOffset );
+
+    			const offset = isMobile? 1 : 3;
+
+    			stopNext = lenSlides - offset ;
+
+    			if( stopNext < +buttons.attr( 'index' ) ) {
+    				buttons.attr( 'index', stopNext );
+    				wrap.css( 'left', -1*(slideWidth + 20)*stopNext );
+    			}
+
+    		} ).trigger( 'resize' );
+
+    		setTimeout( () => $( window ).trigger('resize'), 2000 );
+    		setTimeout( () => $( window ).trigger('resize'), 8000 );
+
+    		function flip( event ) {
+    			buttons.off( 'click', flip );
+
+    			const direction = $(event.target).hasClass('ct_rigth')? -1 : +1;
+    			const width = direction * +wrap.css('flex-basis').replace('px', '');
+
+    			const index = +$(event.target).attr( 'index' );
+
+    			const cur_left = +wrap.css('left').replace('px', '');
+    			const move_to = cur_left + width + 20*direction;
+
+    			if( ( index == stopNext && direction == -1 ) || ( index == 0 && direction == 1 ) )
+    				return 0;
+    			buttons.attr( 'index', index - direction );
+
+    			wrap.animate({
+    				left: `${cur_left + width + 20*direction }px`,
+    			}, 1000);
+
+    			wrap.animate({
+    				left: `${cur_left + width + 20*direction }px`,
+    			}, 1000, () => buttons.on( 'click', flip ) );
+    		}
+
+    		buttons.on( 'click', flip );
+    	});
+    </script>
+{/source}
