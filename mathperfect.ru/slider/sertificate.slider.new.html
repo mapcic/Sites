@@ -1,0 +1,114 @@
+{source}
+<style>
+    .slider__inner {
+        overflow: hidden;
+    }
+
+    .slider_items {
+        /* flex-basis: 260px; */
+        display: flex;
+        flex-direction: row;
+        visibility: visible;
+        backface-visibility: hidden;
+    }
+
+    .slide_item {
+        flex-basis: inherit;
+        flex-grow: 0;
+        flex-shrink: 0;
+        user-select: none;
+        margin: 0 10px;
+    }
+
+    .slider_item img {
+        width: 100%;
+    }
+
+    .control-left {
+        margin: 0 !important;
+    }
+
+    .control-right {
+
+    }
+
+    .control-left:before {
+        content: "\f104";
+    }
+
+    .control-right:before {
+        content: "\f105";
+    }
+</style>
+<div class="sertificates">
+    <header>
+        <h2>Грамоты</h2>
+    </header>
+    <div class="slider">
+        <div class="slider_list" style="display: none;">
+            <img src="/templates/mathperfect/img/sertificate-4.jpg">
+            <img src="/templates/mathperfect/img/sertificate-2.jpg">
+            <img src="/templates/mathperfect/img/sertificate-3.jpg">
+            <img src="/templates/mathperfect/img/sertificate-1.jpg">
+            <img src="/templates/mathperfect/img/sertificate-5.jpg">
+            <img src="/templates/mathperfect/img/sertificate-7.jpg">
+            <img src="/templates/mathperfect/img/sertificate-8.jpg">
+            <img src="/templates/mathperfect/img/sertificate-9.jpg">
+            <img src="/templates/mathperfect/img/sertificate-10.jpg">
+            <img src="/templates/mathperfect/img/sertificate-11.jpg">
+            <img src="/templates/mathperfect/img/sertificate-12.jpg">
+            <img src="/templates/mathperfect/img/sertificate-13.jpg">
+            <img src="/templates/mathperfect/img/sertificate-14.jpg">
+            <img src="/templates/mathperfect/img/sertificate-15.jpg">
+            <img src="/templates/mathperfect/img/sertificate-16.jpg">
+        </div>
+
+        <div class="control-left"></div>
+
+        <div class="slider__inner">
+            <div class="slider_items">
+                <template v-for="(slide, key) in slides">
+                    <slide
+                        v-show="true"
+                        :img="slide"
+                        class="hidden-xs-down"
+                    />
+                </template>
+            </div>
+        </div>
+
+        <div class="control-right"></div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"></script>
+<script>
+( function( $ ) {
+    $(document).ready( function() {
+        Vue.component( 'slide', {
+            template: `<div class="slide_item"><span><img :src="img" class="img"></span></div>`,
+            props: [ 'img' ]
+        } );
+
+        const v_slider = new Vue({
+            el: '.slider__inner',
+            data: {
+                slides: $('.slider_list img').map( (ind, slide) => $(slide).attr('src') ),
+            },
+            mounted: function() {
+                const el = $( this.$el );
+                const slider = el.find('.slider_items')
+                $( window ).on( 'resize', () => {
+                    const widthWindow = $( window ).innerWidth();
+                    const widthSlider = el.innerWidth();
+                    // const widthSlide = widthWindow > 576? ( widthSlider - 60 )/3: widthSlider - 20;
+                    const widthSlide = !window.matchMedia( "(max-width: 576px)" ).matches? ( widthSlider - 60 )/3: widthSlider - 20;
+
+                    slider.find( '.slide_item' ).each( ( index, value ) => $(value).css( 'flex-basis', widthSlide ) );
+                } );
+            }
+        });
+    } );
+} )( jQuery )
+</script>
+{/source}

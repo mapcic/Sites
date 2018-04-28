@@ -4,7 +4,8 @@
         <h2>CV</h2>
     </header>
 
-    <div class="slides" style="display: none;"><?php
+    <div id="cv" class="slides">
+    <?php
         $db = JFactory::getDbo();
         $query = $db->getQuery( true );
         $default_img = '/templates/mathperfect/img/janko-ferlic-174927-jpg.jpg';
@@ -32,8 +33,7 @@
         $cvs = $db->setQuery( $query )
             ->loadObjectList();
 
-        $cv_html = '<div src="${src}" title="${title}" href="${href}">${intro}</div>';
-
+        $out = array();
         foreach( $cvs as $cv ) {
             $title = $cv->title;
             $href = $cv->path;
@@ -46,88 +46,15 @@
             preg_match_all( '/([а-яА-ЯЁёa-zA-Z0-9]+[^а-яА-ЯЁёa-zA-Z0-9]*)/u', $intro, $matches, PREG_PATTERN_ORDER );
             $intro = count( $matches[1] ) <= $max_words ? $intro : implode( '', array_slice( $matches[1], 0, $max_words ) ).'...';
 
-            echo preg_replace( array( '/\${src}/', '/\${href}/', '/\${title}/', '/\${intro}/' ),
-                array( $src, $href, $title, $intro ),
-                $cv_html );
+            $out[] = (object)[
+                'title' => $title,
+                'href' => $href,
+                'text' => $intro,
+                'img' => $src
+            ];
         }
+
+        echo(json_encode($out));
     ?></div>
-
-    <div class="slider">
-        <span class="control control__left fa fa-angle-left fa-3x"></span>
-
-        <div class="slider__inner">
-            <div class="slide slide_active">
-                <div class="slide__item">
-                    <div class="slide__text">
-                        <h3 class="slide_title"></h3>
-                        <p class="slide_intro"></p>
-                        <button class="btn">
-                            <a class="slide_href" href="">Читать подробнее</a>
-                        </button>
-                    </div>
-                    <span>
-                        <img src="" class="img slide_src">
-                    </span>
-                </div>
-            </div>
-        </div>
-
-        <span class="control control__right fa fa-angle-right fa-3x"></span>
-    </div>
 </div>
-
-<script>
-( function( $ ) {
-    $(document).ready( function() {
-        const $slider_wrap = $( '.cv' );
-        const slides = $slider_wrap.find( '.slides div' ).map( ( ind, val ) => {
-            const $val = $( val );
-            const data = {
-                'src': $val.attr( 'src' ),
-                'title': $val.attr( 'title' ),
-                'href': $val.attr( 'href' ),
-                'intro': $val.html()
-            }
-
-            return data;
-        });
-
-        const slen = slides.length;
-        const $slides = $slider_wrap.find( '.slide__item' );
-
-        $slides.each( ( ind, val ) => {
-            const $val = $( val );
-
-            $val.find( '.slide_title' ).html( slides[ind].title );
-            $val.find( '.slide_src' ).attr( 'src', slides[ind].src );
-            $val.find( '.slide_href' ).attr( 'href', slides[ind].href );
-            $val.find( '.slide_intro' ).html( slides[ind].intro );
-
-            $val.attr( 'ind', ind );
-        });
-
-        const $btns = $slider_wrap.find( '.control' ).on( 'click', function( event ) {
-            event.preventDefault();
-            const $this = $( this );
-
-            $slides.each( ( ind, val ) => {
-                const $val = $( val );
-                const direct = $this.hasClass( 'control__right' )? 1 : -1;
-
-                let next_ind = +$val.attr( 'ind' ) + direct;
-
-                if ( next_ind < 0 ) next_ind = slen - 1;
-                if ( next_ind > slen - 1 ) next_ind = 0;
-
-                $val.find( '.slide_title' ).html( slides[next_ind].title );
-                $val.find( '.slide_src' ).attr( 'src', slides[next_ind].src );
-                $val.find( '.slide_href' ).attr( 'href', slides[next_ind].href );
-                $val.find( '.slide_intro' ).html( slides[next_ind].intro );
-
-                $val.attr( 'ind', next_ind );
-            } );
-        } );
-    } );
-} )( jQuery )
-</script>
 {/source}
