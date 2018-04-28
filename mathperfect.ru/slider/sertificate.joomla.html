@@ -1,71 +1,81 @@
 {source}
 <div class="sertificates">
     <header>
-        <h2>Грамоты</h2>
+    	<h2>Диплом, сертификаты и грамоты</h2>
     </header>
 
     <div class="slider">
-        <div class="slider_list" style="display: none;">
-            <img src="/templates/mathperfect/img/sertificate-13.jpg">
-            <img src="/templates/mathperfect/img/sertificate-14.jpg">
-            <img src="/templates/mathperfect/img/sertificate-15.jpg">
-            <img src="/templates/mathperfect/img/sertificate-10.jpg">
-            <img src="/templates/mathperfect/img/sertificate-11.jpg">
-            <img src="/templates/mathperfect/img/sertificate-12.jpg">
-        </div>
+    	<div class="slider_list" style="display: none;">
+    		<img src="/templates/mathperfect/img/1.jpg">
+    		<img src="/templates/mathperfect/img/2.jpg">
+    		<img src="/templates/mathperfect/img/3.jpg">
+    		<img src="/templates/mathperfect/img/4.jpg">
+    		<img src="/templates/mathperfect/img/5.jpg">
+    		<img src="/templates/mathperfect/img/6.jpg">
+    		<img src="/templates/mathperfect/img/7.jpg">
+    		<img src="/templates/mathperfect/img/8.jpg">
+    		<img src="/templates/mathperfect/img/9.jpg">
+    		<img src="/templates/mathperfect/img/10.jpg">
+    		<img src="/templates/mathperfect/img/11.jpg">
+    		<img src="/templates/mathperfect/img/12.jpg">
+    		<img src="/templates/mathperfect/img/13.jpg">
+    		<img src="/templates/mathperfect/img/14.jpg">
+    		<img src="/templates/mathperfect/img/15.jpg">
+    		<img src="/templates/mathperfect/img/16.jpg">
+    	</div>
 
-        <span class="control control__left fa fa-angle-left fa-3x"></span>
+    	<span class="control control__left fa fa-angle-left fa-3x"></span>
 
-        <div class="slider__inner">
-            <div class="slider__items">
-                    <div class="slide__item">
-                        <span><img src="" class="img"></span>
-                    </div>
-                    <div class="slide__item hidden-xs-down">
-                        <span><img src="" class="img"></span>
-                    </div>
-                    <div class="slide__item hidden-xs-down">
-                        <span><img src="" class="img"></span>
-                    </div>
-            </div>
-        </div>
+    	<div class="slider__inner">
+    		<div class="slider__items">
+    				<div class="slide__item">
+    					<span><img src="" class="img"></span>
+    				</div>
+    				<div class="slide__item hidden-xs-down">
+    					<span><img src="" class="img"></span>
+    				</div>
+    				<div class="slide__item hidden-xs-down">
+    					<span><img src="" class="img"></span>
+    				</div>
+    		</div>
+    	</div>
 
-        <span class="control control__right fa fa-angle-right fa-3x"></span>
+    	<span class="control control__right fa fa-angle-right fa-3x"></span>
     </div>
 </div>
 
 <script>
 ( function( $ ) {
     $(document).ready( function() {
-        const $slider_wrap = $( '.sertificates' );
-        const slides = $slider_wrap.find( '.slider_list img' ).map( ( ind, val ) => $(val).attr( 'src' ) );
-        const slen = slides.length;
-        const $slides = $slider_wrap.find( '.slide__item' );
+    	const $slider_wrap = $( '.sertificates' );
+    	const slides = $slider_wrap.find( '.slider_list img' ).map( ( ind, val ) => $(val).attr( 'src' ) );
+    	const slen = slides.length;
+    	const $slides = $slider_wrap.find( '.slide__item' );
 
-        $slides.each( ( ind, val ) =>
-            $( val ).attr( 'ind', ind )
-                .find( 'img' )
-                .attr( 'src', slides[ind] )
-        );
+    	$slides.each( ( ind, val ) =>
+    		$( val ).attr( 'ind', ind )
+    			.find( 'img' )
+    			.attr( 'src', slides[ind] )
+    	);
 
-        const $btns = $slider_wrap.find( '.control' ).on( 'click', function( event ) {
-            event.preventDefault();
-            const $this = $( this );
+    	const $btns = $slider_wrap.find( '.control' ).on( 'click', function( event ) {
+    		event.preventDefault();
+    		const $this = $( this );
 
-            $slides.each( ( ind, val ) => {
-                const $val = $( val );
-                const direct = $this.hasClass( 'control__right' )? 1 : -1;
+    		$slides.each( ( ind, val ) => {
+    			const $val = $( val );
+    			const direct = $this.hasClass( 'control__right' )? 1 : -1;
 
-                let next_ind = +$val.attr( 'ind' ) + direct;
+    			let next_ind = +$val.attr( 'ind' ) + direct;
 
-                if ( next_ind < 0 ) next_ind = slen - 1;
-                if ( next_ind > slen - 1 ) next_ind = 0;
+    			if ( next_ind < 0 ) next_ind = slen - 1;
+    			if ( next_ind > slen - 1 ) next_ind = 0;
 
-                $val.attr( 'ind', next_ind )
-                    .find( 'img' )
-                    .attr( 'src', slides[next_ind] );
-            } );
-        } );
+    			$val.attr( 'ind', next_ind )
+    				.find( 'img' )
+    				.attr( 'src', slides[next_ind] );
+    		} );
+    	} );
     } );
 } )( jQuery )
 </script>
