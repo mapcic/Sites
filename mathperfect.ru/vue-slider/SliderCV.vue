@@ -10,20 +10,20 @@
         <template v-for="slide in sliders">
             <slide>
                 <div class="slideCV">
-                    <div class="slideText">
-                        <div class="slideTitle">
-                            {{ slide.title }}
+                    <div class="slideWrap">
+                        <div class="slideTextWrap">
+                            <h3 class="slideTitle">
+                                {{ slide.title }}
+                            </h3>
+                            <div class="slideText">
+                                {{ slide.text }}
+                            </div>
+                            <div class="slideButtons">
+                                <a class="slideButton" :href="slide.href">Читать подробнее...</a>
+                            </div>
                         </div>
-                        <div class="slideText">
-                            {{ slide.text }}
-                        </div>
-                        <div class="slideButtons">
-                            <button>
-                                <a :href="slide.href">Подробнее</a>
-                            </button>
-                        </div>
+                        <div class="slideImg" :style="{ 'background-image': 'url(' + slide.img + ')' }"></div>
                     </div>
-                    <div class="slideImg" :style="{ 'background-image': 'url(' + slide.img + ')' }"></div>
                 </div>
                 <!-- <div class="slide"> -->
                 <!-- <div :class="$style.slide">
