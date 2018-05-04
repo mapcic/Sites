@@ -1,0 +1,60 @@
+{source}
+<div class="cv">
+    <header>
+        <h2>CV</h2>
+    </header>
+
+    <div id="cv" class="slides">
+    <?php
+        $db = JFactory::getDbo();
+        $query = $db->getQuery( true );
+        $default_img = '/templates/mathperfect/img/janko-ferlic-174927-jpg.jpg';
+
+        $menutype = 'hidemenu'; // menutype id is 2;
+        $parent_menu_id = 142;
+
+        $subQuery = $db->getQuery( true )
+            ->select( $db->qn('path') )
+            ->from( $db->qn('#__menu') )
+            ->where( $db->qn('id').' = '.$db->escape( $parent_menu_id, true ) );
+        $query = $db->getQuery( true )
+            ->select( $db->qn( array(
+                'a.introtext',
+                'a.created',
+                'b.title',
+                'b.path' ) ) )
+            ->from( $db->qn( '#__content', 'a' ) )
+            ->innerJoin( $db->qn( '#__menu', 'b' ).' ON '.
+                $db->qn( 'b.link' ).' LIKE CONCAT("%\?option=com_content&view=article&id=", '.$db->qn( 'a.id' ).')' )
+            ->where( $db->qn( 'b.path' ).' LIKE CONCAT(('.$subQuery.'), "'. ( $parent_menu_id == 1 ? '' : '/') .'%")', 'AND')
+            ->where( $db->qn( 'b.menutype' ).' = '.$db->q( $menutype ) )
+            ->where( $db->qn( 'b.published' ).' = 1' );
+
+        $cvs = $db->setQuery( $query )
+            ->loadObjectList();
+
+        $out = array();
+        foreach( $cvs as $cv ) {
+            $title = $cv->title;
+            $href = $cv->path;
+
+            preg_match( '/<img[^\>]*src="([^\>"]*)"[^\>]*>/U', $cv->introtext, $matches );
+            $src = count($matches) > 1 ? $matches[1] : $default_img;
+
+            $max_words = 20;
+            $intro = preg_replace( '/<[^>]*>/U', '', $cv->introtext );
+            preg_match_all( '/([а-яА-ЯЁёa-zA-Z0-9]+[^а-яА-ЯЁёa-zA-Z0-9]*)/u', $intro, $matches, PREG_PATTERN_ORDER );
+            $intro = count( $matches[1] ) <= $max_words ? $intro : implode( '', array_slice( $matches[1], 0, $max_words ) ).'...';
+
+            $out[] = (object)[
+                'title' => $title,
+                'href' => $href,
+                'text' => $intro,
+                'img' => $src
+            ];
+        }
+
+        echo(json_encode($out));
+    ?></div>
+</div>
+{/source}
