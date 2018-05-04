@@ -11,18 +11,10 @@
             <slide>
                 <div class="slideCV">
                     <div class="slideWrap">
-                        <div class="slideTextWrap">
-                            <h3 class="slideTitle">
-                                {{ slide.title }}
-                            </h3>
-                            <div class="slideText">
-                                {{ slide.text }}
-                            </div>
-                            <div class="slideButtons">
-                                <a class="slideButton" :href="slide.href">Читать подробнее...</a>
-                            </div>
+                        <div class="slideTitle">
+                            {{slide.title}}
                         </div>
-                        <div class="slideImg" :style="{ 'background-image': 'url(' + slide.img + ')' }"></div>
+                        <div class="slideText" v-html="slide.text"></div>
                     </div>
                 </div>
             </slide>
@@ -34,7 +26,7 @@
     import { Carousel, Slide } from 'vue-carousel';
 
     export default {
-        name: 'slider-cv',
+        name: 'slider-achivements',
 
         props: {
             sliders: {
