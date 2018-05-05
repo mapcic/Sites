@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import SliderCV from './SliderCV.vue'
-// import SliderAchivements from './SliderAchivements.vue'
+import SliderAchivements from './SliderAchivements.vue'
 
 const sertificates_id = 'sertificates';
 const sertificates_dom = document.getElementById(sertificates_id);
@@ -31,20 +31,20 @@ const cv_app = new SliderCVApp({
 });
 cv_app.$mount( `#${cv_id}` );
 
-// const as_id = 'achivements_student';
-// const as_dom = document.getElementById(as_id);
-// let as_sliders = null;
-// if( as_dom )
-//     as_sliders = JSON.parse(as_dom.innerHTML);
-//
-// const SliderAchivementsApp = Vue.extend( SliderAchivements );
-// const as_app = new SliderAchivementsApp({
-//     propsData: {
-//         sliders: as_sliders,
-//     }
-// });
-// as_app.$mount( `#${as_id}` );
-//
+const as_id = 'achivements_student';
+const as_dom = document.getElementById(as_id);
+const as_sliders = window.as_sliders? window.as_sliders : [];
+
+const SliderAchivementsApp = Vue.extend( SliderAchivements );
+const as_app = new SliderAchivementsApp({
+    propsData: {
+        sliders: as_sliders,
+    }
+});
+
+if( as_dom )
+    as_app.$mount( `#${as_id}` );
+
 // const ap_id = 'achivements_pupils';
 // const ap_dom = document.getElementById(ap_id);
 // let ap_sliders = null;

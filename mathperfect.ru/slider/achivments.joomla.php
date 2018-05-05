@@ -27,9 +27,17 @@
     foreach( $achivements as $a ) {
         $title = $a->title;
 
+        preg_match( '/<img[^\>]*src="([^\>"]*)"[^\>]*>/U', $a->fulltext, $matches );
+        $img = count($matches) > 1 ? '/'.$matches[1] : '';
+
+        $text = preg_replace( '/<[^>]*>/U', '', $a->fulltext );
+        $text = preg_replace( '/\{[^\}]*\}/U', '', $text );
+        $text = preg_replace( '/\"/U', '\\\"', $text );
+
         $out[] = (object)[
-            'title' => $a->title,
-            'text' => $a->fulltext
+            'img' => $img,
+            'title' => $title,
+            'text' => $text
         ];
     }
 
