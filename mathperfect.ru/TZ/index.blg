@@ -1,0 +1,42 @@
+This is 8-bit Big BibTeX version 0.99d
+Implementation:  C for Unix
+Release version: 3.71 (18 mar 2013)
+
+The 8-bit codepage and sorting file: 88591lat.csf
+The top-level auxiliary file: index.aux
+A level-1 auxilliary file: 00-titlepage.aux
+A level-1 auxilliary file: 10-intro.aux
+A level-1 auxilliary file: 20-main.aux
+A level-1 auxilliary file: 21-main.aux
+A level-1 auxilliary file: 22-main.aux
+A level-1 auxilliary file: 23-main.aux
+A level-1 auxilliary file: 24-main.aux
+A level-1 auxilliary file: 30-main.aux
+A level-1 auxilliary file: 31-main.aux
+A level-1 auxilliary file: 32-main.aux
+A level-1 auxilliary file: 33-main.aux
+A level-1 auxilliary file: 40-main.aux
+A level-1 auxilliary file: 41-main.aux
+A level-1 auxilliary file: 42-main.aux
+A level-1 auxilliary file: 50-main.aux
+A level-1 auxilliary file: 51-main.aux
+A level-1 auxilliary file: 52-main.aux
+A level-1 auxilliary file: 60-conclusion.aux
+A level-1 auxilliary file: 61-biblio.aux
+The style file: gost780u.bst
+A level-1 auxilliary file: 70-img.aux
+A level-1 auxilliary file: 71-img.aux
+Reallocated glb_str_ptr (elt_size=8) to 10 items from 0.
+Reallocated global_strs (elt_size=20001) to 10 items from 0.
+Reallocated glb_str_end (elt_size=8) to 10 items from 0.
+Database file #1: index.bib
+Warning--empty journal in Gerald
+
+Here's how much of BibTeX's memory you used:
+ Cites:                14 out of 750
+ Fields:              392 out of 5000
+ Hash table:        35098 out of 35307
+ Strings:             750 out of 35307
+ Free string pool:   8198 out of 65000
+ Wizard functions:   2674 out of 3000
+(There was 1 warning)

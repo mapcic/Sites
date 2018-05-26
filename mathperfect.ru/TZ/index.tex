@@ -1,0 +1,47 @@
+\RequirePackage{silence}
+\WarningFilter{caption}{Unsupported document class}
+\WarningFilter{latexfont}{Font shape `PD1/cmr/m/n'}
+\WarningFilter{latexfont}{Font shape `PU/cmr/m/n'}
+\WarningFilter{latexfont}{Some font shapes}
+
+\documentclass[utf8, 14pt]{G7-32}
+
+\include{preamble.inc}
+\include{listings.inc}
+\include{macros.inc}
+
+\begin{document}
+
+\frontmatter
+
+\include{00-titlepage}
+
+\setcounter{page}{2}
+\tableofcontents
+
+\include{10-intro}
+\mainmatter
+	% Эксплуатационное назначение
+	\include{20-main}
+	% Фукциональное назначение
+	\include{21-main}
+	% Термины и определения
+	\include{22-main}
+	% Данные и списки
+	\include{23-main}
+	% Страницы с описанием
+	\include{24-main}
+	% Требования к надежности
+	\include{25-main}
+	% Требования к хостингу
+	\include{26-main}
+	% Наполнение контентом
+	\include{27-main}
+	% Сдача и приемка
+	\include{28-main}
+\backmatter
+	\include{30-conclusion}
+
+\appendix
+	% \include{40-appendix}
+\end{document}

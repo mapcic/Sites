@@ -1,0 +1,131 @@
+\begin{thebibliography}{10}
+\def\selectlanguageifdefined#1{
+\expandafter\ifx\csname date#1\endcsname\relax
+\else\language\csname l@#1\endcsname\fi}
+\ifx\undefined\url\def\url#1{{\small #1}}\else\fi
+\ifx\undefined\BibUrl\def\BibUrl#1{\url{#1}}\else\fi
+\ifx\undefined\BibAnnote\long\def\BibAnnote#1{}\else\fi
+\ifx\undefined\BibEmph\def\BibEmph#1{\emph{#1}}\else\fi
+
+\bibitem{Kalashnikov}
+\selectlanguageifdefined{russian}
+\BibEmph{Бонч-Бруевич,~В.~Л.} Физика
+  полупроводников~/ В.~Л.~Бонч-Бруевич,
+  С.~Г.~Калашников. ---
+\newblock М.: Мир, 1977. ---
+\newblock 678~{с.}
+
+\bibitem{Shilaev}
+\selectlanguageifdefined{russian}
+\BibEmph{Шиляев,~П.А.} Полупроводниковые
+  гетероструктуры --- гетеропереход:
+  учебно-методическое пособие~/ П.А.~Шиляев,
+  Д.А.~Павлов. ---
+\newblock Н.Новгород: Нижегородский
+  госуниверситет, 2009. ---
+\newblock 18~{с.}
+
+\bibitem{Shinkarenko}
+\selectlanguageifdefined{russian}
+\BibEmph{Шинкаренко,~В.~Г.} Электрические
+  свойства полупроводников:
+  учебно-методическое пособие~/
+  В.~Г.~Шинкаренко. ---
+\newblock М.: МФТИ, 2012. ---
+\newblock 80~{с.}
+
+\bibitem{Harrison}
+\selectlanguageifdefined{english}
+\BibEmph{Harrison,~W.~A.} Electronic Structure and the Properties of Solids:
+  The Physics of the Chemical Bond~/ W.~A.~Harrison. ---
+\newblock Massachusetts: Courier Corporation, 2012. ---
+\newblock 582~pp.
+
+\bibitem{Usanov}
+\selectlanguageifdefined{russian}
+\BibEmph{Усанов,~Д.~А.} Физические основы
+  наноэлектроники~/ Д.~А.~Усанов,
+  А.~В.~Скрипаль. ---
+\newblock Саратов: ил. Электронное издание, 2013.
+  ---
+\newblock 128~{с.}
+
+\bibitem{Moskaluk}
+\selectlanguageifdefined{russian}
+\BibEmph{Москалюк,~В.~А.}
+  Сверхбыстродействующие приборы
+  электроники~/ В.~А.~Москалюк, В.~И.~Тимофеев,
+  А.~В.~Федяй. ---
+\newblock К.: НТУУ <<КПИ>>, 2012. ---
+\newblock 479~{с.}
+
+\bibitem{getMeshkov}
+\selectlanguageifdefined{russian}
+\BibEmph{Макеев,~М.О.} Оценка стойкости к
+  диффузионной деструкции наноразмерных
+  AlAs/GaAs резонансно-туннельных
+  гетероструктур методом ИК-спектральной
+  эллипсометрии~/ М.О.~Макеев, Ю.А.~Иванов,
+  С.А.~Мешков~// \BibEmph{Физика и техника
+  полупроводников}. ---
+\newblock 2016.
+
+\bibitem{Makeev}
+\selectlanguageifdefined{russian}
+\BibEmph{Макеев,~Мстислав~Олегович}. Разработка
+  конструкторско-технологических методов и
+  средств повышения надёжности смесителей
+  радиосигналов на основе
+  резонансно-туннельных диодов: автореф.
+  дис. канд. техн. наук : 05.11.14~/
+  Мстислав~Олегович~Макеев. ---
+\newblock М., 2014. ---
+\newblock 17~{с.}
+
+\bibitem{Gosele}
+\selectlanguageifdefined{english}
+Diffusion in GaAs and Related Compounds: Resent Developments~/ U.~Gosele,
+  T.~Y.~Tan, M.~Schultz et~al.~// \BibEmph{Deffect and Diffusion Forum}. ---
+\newblock 1997. ---
+\newblock Pp.~143--147.
+
+\bibitem{Samarski}
+\selectlanguageifdefined{russian}
+\BibEmph{Самарский,~А.~А.} Введение в численные
+  методы~/ А.~А.~Самарский. ---
+\newblock М.: Наука, 1987. ---
+\newblock 288~{с.}
+
+\bibitem{FDDiff}
+\selectlanguageifdefined{english}
+\BibEmph{Becker,~T.~W.} Numerical Modeling of Earth Systems~/ T.~W.~Becker,
+  J.~P.~Kaus. ---
+\newblock California: USC, 2016. ---
+\newblock 222~pp.
+
+\bibitem{Gerald}
+\selectlanguageifdefined{english}
+\BibEmph{Recktenwald,~G.~W.} Finite-Difference Approximations to the Heat
+  Equation~/ G.~W.~Recktenwald. ---
+\newblock 2011.
+
+\bibitem{Erwin}
+\selectlanguageifdefined{english}
+\BibEmph{Kreyszig,~Erwin}. Advanced Engineering Mathematics~/ Erwin~Kreyszig.
+  ---
+\newblock California: Chegg, 2011. ---
+\newblock 1283~pp.
+
+\bibitem{Vetrova}
+\selectlanguageifdefined{russian}
+\BibEmph{Ветрова,~Н.~А.} Определение управляемых
+  параметров для
+  конструкторско-технологической
+  оптимизации СВЧ смесителей радиосигналов
+  на резонансно-туннельных диодах по
+  критерию их надежности~/ Н.~А.~Ветрова,
+  В.~Д.~Шашурин, Н.~В.~Назаров~// \BibEmph{Наука и
+  образование}. ---
+\newblock 2011.
+
+\end{thebibliography}
